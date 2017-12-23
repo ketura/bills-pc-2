@@ -2,58 +2,39 @@
     <head>
         <!-- <style type="text/css">@charset "UTF-8";</style> -->
         <meta charset="utf-8">
-        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.jqueryui.min.css" >
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" >
         <link rel="stylesheet" href="https://cdn.datatables.net/keytable/2.3.2/css/keyTable.jqueryui.min.css" >
+        <link rel="stylesheet" href="https://cdn.datatables.net/fixedcolumns/3.2.4/css/fixedColumns.dataTables.min.css" >
+        <link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.1.3/css/fixedHeader.dataTables.min.css" >
+        <link rel="stylesheet" href="https://cdn.datatables.net/select/1.2.4/css/select.dataTables.min.css" >
         <title>Ketura's PC</title>
+
+        
     </head>
     <body id="">
         <div id="app">
 			<div class="w100">
-				<div class="dash-panel-box">
+				<div class="dash-panel-box" width="80%">
 					<div class="dash-heading row">
-						<button name="data-report" type="button" class="btn btn-dark">Add Row</button>
+						<input id="inNewType">
+						<button name="btnAddType" type="button" class="btn btn-dark">Add Row</button>
+
 					</div>
-					<table id="dash-load" class="display" width="100%" cellspacing="0"> </table>
+					<table id="typeTable" class="display cell-border compact hover stripe" width="80%" cellspacing="0"> </table>
 				</div>
 			</div>
 		</div>
-		<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.16/css/jquery.dataTables.css" /> -->
 		
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>     
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.16/js/jquery.dataTables.js"></script>    	  
-		
-		<script> 
-		//The jQuery(callback) function is basically something which runs after the entire document has been loaded.
-		jQuery(function () {
-			var table_data = [ 
-				{name: "dwood", id: 1, full_name: "dwoodhouse"}, 
-				{name: "ketura", id: 2, full_name: "ketura01"}  
-			];
-
-			var cp_table = jQuery("#dash-load").DataTable({
-				"data": table_data,
-				"autoWidth": true,
-				"columns": [
-					{ title: 'User', data: 'name'},
-					{ title: 'User ID', data: 'id'},
-					{ title: 'Full Name / Extra', data: 'full_name'}
-				],
-                paging: false,
-                ordering: false,
-                searching: false,
-                "info": false,
-				processing: true
-			});
-
-			jQuery('[name=data-report]').on('click', function () {
-				//Do your data calculations for button presses here.
-				//cp_table.ajax.url(dataUrl + "?" + $.param(/* Required Parameters */));
-				console.log(cp_table.data());
-                cp_table.columns += {title: "New Type", data: 'new_type'};
-                cp_table.row.add({name: "New Type", id: 3, full_name: "Xavier"}).draw();
-				console.log(cp_table.data());
-			});
-		});
-	</script>	
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.16/js/jquery.dataTables.js"></script> -->
+		<!-- <script src="https://cdn.datatables.net/fixedcolumns/3.2.4/js/dataTables.fixedColumns.min.js"></script>
+		<script src="https://cdn.datatables.net/fixedheader/3.1.3/js/dataTables.fixedHeader.min.js"></script>
+		<script src="https://cdn.datatables.net/select/1.2.4/js/dataTables.select.min.js"></script> -->
+		<script data-main="js/types" src="js/lib/require.js"></script>
+        <script> 
+        
+            
+            //
+        </script>	
 	</body>
 </html>
