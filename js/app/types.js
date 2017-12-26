@@ -1,9 +1,9 @@
 define(["jquery", "jquery-ui", "datatables"], function($) 
 {
+    console.log("types.js actual");
+    
     return function($)
     {
-        console.log($);
-
         window.pokeTypes = ['Fire', 'Water', 'Electric'];
         //The $(callback) function is basically something which runs after the entire document has been loaded.
         $(function () {
@@ -12,22 +12,18 @@ define(["jquery", "jquery-ui", "datatables"], function($)
         });
 
         window.TypeTabInit = function ($){
-            console.log('got in');
             var typeDatatable = RegenerateTypeTable();
 
             $('[name=btnAddType]').on('click', function () {
-                //console.log(typeDatatable.data());
                 pokeTypes.push($('#inNewType').val());
                 typeDatatable.destroy();
                 $('#typeTable').empty();
                 typeDatatable = RegenerateTypeTable();
-                //console.log(typeDatatable.data());
             });
         }
 
         window.RegenerateTypeTable = function () 
         {
-            console.log(pokeTypes);
             var tableData = [];
             var headerRow = {name:""};
             var columns = [
@@ -47,10 +43,6 @@ define(["jquery", "jquery-ui", "datatables"], function($)
                 });
                 tableData.push(dataRow);
             });
-
-            console.log(tableData);
-            console.log(columns);
-
 
             var typeDatatable = $("#typeTable").DataTable({
                 "data": tableData,
