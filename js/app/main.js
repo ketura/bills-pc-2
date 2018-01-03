@@ -1,21 +1,18 @@
 define(["jquery", "jquery-ui", "datatables", "app/types"], function($, jqueryUI, DataTables, typetab) 
 {
-    typetab($);
-    
+    console.log("main");
+    console.log(typetab);
 
     $( function() 
     {
         $( "#tabs" ).tabs();
         $("#tab-types").load("Types.html", function(){
-            TypeTabInit($);
+            typetab.Init();
         });
         
         //$("#tabs").draggable("destroy"); 
 
     });
 
-    
-
-    
 });
 

@@ -1,5 +1,6 @@
 function Tab()
 {
+    
     this.$ = null;
     this.AssignEvents = function() {};
     this.DestroyControls = function() {};
@@ -10,15 +11,17 @@ function Tab()
         this.BuildControls();
     };
 
-    this.Init = function(jq) 
+    this.Init = function() 
     {
-        this.$ = jq;
-        this.RebuildControls();
+        this.BuildControls();
         this.AssignEvents();
     };
 }
 
 define(["jquery"], function($) 
 {
-    return new Tab();
+    console.log("new BaseTab");
+    t = new Tab();
+    t.$ = $;
+    return t;
 });
