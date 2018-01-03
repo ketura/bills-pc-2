@@ -16,6 +16,7 @@ define(["jquery", "app/BaseTab", "jquery-ui", "datatables"], function($, BaseTab
         // console.log(tab);
         $('[name=btnAddType]').on('click', function()
         {
+            tab.pokeTypes.push($('#inNewType').val());
             tab.RebuildControls();
         });
     };
@@ -25,8 +26,7 @@ define(["jquery", "app/BaseTab", "jquery-ui", "datatables"], function($, BaseTab
         var self = this;
         // console.log("destroy");
         // console.log(self);
-        
-        self.pokeTypes.push($('#inNewType').val());
+
         self.typeDatatable.destroy();
         $('#typeTable').empty();
     };
