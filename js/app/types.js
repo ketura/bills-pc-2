@@ -1,5 +1,6 @@
-define(["jquery", "app/BaseTab", "jquery-ui", "datatables"], function($, BaseTab) 
+define(["jquery", "app/BaseTab", "CellEdit", "jquery-ui", "datatables"], function($, BaseTab, CellEdit) 
 {
+    CellEdit();
     tab = BaseTab;
 
     tab.pokeTypes = ['Fire', 'Water', 'Electric'];
@@ -27,9 +28,16 @@ define(["jquery", "app/BaseTab", "jquery-ui", "datatables"], function($, BaseTab
         // console.log("destroy");
         // console.log(self);
 
+        self.typeDatatable.MakeCellsEditable("destroy");
         self.typeDatatable.destroy();
         $('#typeTable').empty();
     };
+
+    tab.UpdateCell = function(cell, row, col, oldValue)
+    {
+        console.log("Updated data in (" + col + ", " + row + ")");
+        console.log("New value: " + cell.data() + "; old value: " + oldValue);
+    }
 
     tab.BuildControls = function () 
     {
@@ -68,6 +76,9 @@ define(["jquery", "app/BaseTab", "jquery-ui", "datatables"], function($, BaseTab
             processing: true
         });
 
+        self.typeDatatable.MakeCellsEditable({
+            "onUpdate": self.UpdateCell
+        });
 
         return self.typeDatatable
     }

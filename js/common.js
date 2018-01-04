@@ -15,6 +15,7 @@ requirejs.config(
         ,"jquery-ui": "//code.jquery.com/ui/1.12.1/jquery-ui.min"
         ,"datatables": "//cdnjs.cloudflare.com/ajax/libs/datatables/1.10.16/js/jquery.dataTables"
         ,"BaseTab": "app/BaseTab"
+        ,"CellEdit": "lib/cellEdit"
     },
     onNodeCreated: function(node, config, module, path) 
     {
