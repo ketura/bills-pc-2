@@ -1,0 +1,34 @@
+
+- make a *.py or batch file for running the site locally
+	(for now it's just python -m http.server 8000 --bind 127.0.0.1)
+
+- add cell editing:
+	http://jsfiddle.net/4nil/zq7j97c4/
+	https://github.com/ejbeaty/CellEdit/blob/master/js/dataTables.cellEdit.js
+	https://editor.datatables.net/extensions/Editor/js/dataTables.editor.min.js
+	
+
+
+the following is the load order:
+
+js/main.js entry
+common.js:9 js/common.js entry
+main.js:5 js/main.js require
+main.js:1 js/app/main.js entry
+types.js:1 js/app/types.js entry
+BaseTab.js:1 js/app/BaseTab.js entry
+cellEdit.js:26 js/lib/cellEdit.js entry
+BaseTab.js:26 js/app/BaseTab.js define
+cellEdit.js:30 js/lib/cellEdit.js define
+types.js:5 js/app/types.js define
+cellEdit.js:33 js/lib/cellEdit.js actual
+main.js:5 js/app/main.js define
+main.js:6 Tab {$: ƒ, AssignEvents: ƒ, DestroyControls: ƒ, BuildControls: ƒ, RebuildControls: ƒ, …}
+types.js:14 js/app/types.js actual
+BaseTab.js:18 tab init
+cellEdit.js:36 js/lib/cellEdit.js MakeCellsEditable
+main.js:10 js/app/main.js actual
+jquery-3.2.1.min.js:4 [Deprecation] Synchronous XMLHttpRequest on the main thread is deprecated because of its detrimental effects to the end user's experience. For more help, check https://xhr.spec.whatwg.org/.
+main.js:29 load complete
+BaseTab.js:18 tab init
+cellEdit.js:36 js/lib/cellEdit.js MakeCellsEditable

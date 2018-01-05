@@ -1,3 +1,8 @@
-requirejs(['./common'], function (common) {
-    requirejs(['app/main']);
+console.log("js/main.js entry")
+
+requirejs(['./common'], function (common) 
+{
+	console.log("js/main.js require")
+  requirejs(['app/main']);
+
 });

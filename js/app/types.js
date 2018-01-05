@@ -1,5 +1,9 @@
-define(["jquery", "app/BaseTab", "CellEdit", "jquery-ui", "datatables"], function($, BaseTab, CellEdit) 
+console.log("js/app/types.js entry")
+
+define(["jquery", "app/BaseTab", "CellEdit", "datatables", "select", "jquery-ui"], function($, BaseTab, CellEdit, datatables, select) 
 {
+    console.log("js/app/types.js define")
+    console.log(select);
     CellEdit();
     tab = BaseTab;
 
@@ -8,6 +12,7 @@ define(["jquery", "app/BaseTab", "CellEdit", "jquery-ui", "datatables"], functio
 
     //The $(callback) function is basically something which runs after the entire document has been loaded.
     $(function () {
+        console.log("js/app/types.js actual")
         tab.Init();
     });
 
@@ -73,12 +78,41 @@ define(["jquery", "app/BaseTab", "CellEdit", "jquery-ui", "datatables"], functio
             ordering: false,
             searching: false,
             info: false,
-            processing: true
+            processing: true,
+            select: 
+            {
+                style: 'single',
+                items: 'cell'
+            },
+            stateSave: true
         });
+
+
+        // new $.fn.dataTable.Buttons(self.typeDatatable, {
+        //     buttons: [
+        //         'copy', 'csv'
+        //     ]
+        // });
+
+        //self.typeDatatable.buttons().container().appendTo( $('.col-sm-6:eq(0)', self.typeDatatable.table().container() ) );
 
         self.typeDatatable.MakeCellsEditable({
             "onUpdate": self.UpdateCell
         });
+
+        // $('#typeTable').on( 'click', 'tr', function () 
+        // {
+        //     console.log('clicked');
+        //     if ( $(this).hasClass('selected')) 
+        //     {
+        //         $(this).removeClass('selected');
+        //     }
+        //     else 
+        //     {
+        //         self.typeDatatable.$('tr.selected').removeClass('selected');
+        //         $(this).addClass('selected');
+        //     }
+        // });
 
         return self.typeDatatable
     }

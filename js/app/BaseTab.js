@@ -1,3 +1,5 @@
+console.log("js/app/BaseTab.js entry")
+
 function Tab()
 {
     
@@ -13,6 +15,7 @@ function Tab()
 
     this.Init = function() 
     {
+        console.log("tab init");
         this.BuildControls();
         this.AssignEvents();
     };
@@ -20,7 +23,7 @@ function Tab()
 
 define(["jquery"], function($) 
 {
-    console.log("new BaseTab");
+    console.log("js/app/BaseTab.js define")
     t = new Tab();
     t.$ = $;
     return t;

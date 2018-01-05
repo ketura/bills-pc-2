@@ -3,6 +3,11 @@
 // Configure loading modules from the lib directory,
 // except for 'app' ones, which are in a sibling
 // directory.
+
+
+
+console.log("js/common.js entry")
+
 requirejs.config(
 {
     baseUrl: 'js',
@@ -13,7 +18,9 @@ requirejs.config(
         ,"jquery": "//code.jquery.com/jquery-3.2.1.min"
         ,'jquery-private': "lib/jquery-private"
         ,"jquery-ui": "//code.jquery.com/ui/1.12.1/jquery-ui.min"
-        ,"datatables": "//cdnjs.cloudflare.com/ajax/libs/datatables/1.10.16/js/jquery.dataTables"
+        //,"datatables": "//cdnjs.cloudflare.com/ajax/libs/datatables/1.10.16/js/jquery.dataTables"
+        ,"datatables": "lib/DataTables-combined/js/datatables.combined"
+        ,"select": "lib/Select-1.2.4/js/dataTables.select"
         ,"BaseTab": "app/BaseTab"
         ,"CellEdit": "lib/cellEdit"
     },
@@ -36,6 +43,7 @@ requirejs.config(
       // '*' means all modules will get 'jquery-private'
       // for their 'jquery' dependency.
       '*': { 'jquery': 'jquery-private' },
+      '*': { 'datatables.net': 'datatables' },
 
       // 'jquery-private' wants the real jQuery module
       // though. If this line was not here, there would

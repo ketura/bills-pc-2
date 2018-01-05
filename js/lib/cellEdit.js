@@ -23,16 +23,23 @@
  * For details please refer to: http://www.datatables.net
  */
 
-define(["jquery"], function($) 
+console.log("js/lib/cellEdit.js entry");
+
+define(["jquery", "datatables"], function($) 
 {
+    console.log("js/lib/cellEdit.js define");
     return function()
     {
-        $.fn.dataTable.Api.register('MakeCellsEditable()', function (settings) {
+        console.log("js/lib/cellEdit.js actual");
+        $.fn.dataTable.Api.register('MakeCellsEditable()', function (settings) 
+        {
+            console.log("js/lib/cellEdit.js MakeCellsEditable");
             var table = this.table();
 
             $.fn.extend({
                 // UPDATE
-                updateEditableCell: function (callingElement) {
+                updateEditableCell: function (callingElement) 
+                {
                     // Need to redeclare table here for situations where we have more than one datatable on the page. See issue6 on github
                     var table = $(callingElement.closest("table")).DataTable().table();
                     var row = table.row($(callingElement).parents('tr'));
@@ -43,32 +50,42 @@ define(["jquery"], function($)
 
                     // Update
                     var newValue = inputField.val();
-                    if (!newValue && ((settings.allowNulls) && settings.allowNulls != true)) {
+                    if (!newValue && ((settings.allowNulls) && settings.allowNulls != true)) 
+                    {
                         // If columns specified
-                        if (settings.allowNulls.columns) {
+                        if (settings.allowNulls.columns) 
+                        {
                             // If current column allows nulls
-                            if (settings.allowNulls.columns.indexOf(columnIndex) > -1) {
+                            if (settings.allowNulls.columns.indexOf(columnIndex) > -1) 
+                            {
                                 _update(newValue);
-                            } else {
+                            } else 
+                            {
                                 _addValidationCss();
                             }
                             // No columns allow null
-                        } else if (!newValue) {
+                        } else if (!newValue) 
+                        {
                             _addValidationCss();
                         }
                         //All columns allow null
-                    } else {
+                    } else
+                    {
                         _update(newValue);
                     }
-                    function _addValidationCss() {
+                    function _addValidationCss() 
+                    {
                         // Show validation error
-                        if (settings.allowNulls.errorClass) {
+                        if (settings.allowNulls.errorClass) 
+                        {
                             $(inputField).addClass(settings.allowNulls.errorClass)
-                        } else {
+                        } else
+                        {
                             $(inputField).css({ "border": "red solid 1px" });
                         }
                     }
-                    function _update(newValue) {
+                    function _update(newValue)
+                    {
                         var oldValue = cell.data();
                         cell.data(newValue);
                         //Return cell & row.
@@ -81,7 +98,8 @@ define(["jquery"], function($)
                     table.page(currentPageIndex).draw(false);
                 },
                 // CANCEL
-                cancelEditableCell: function (callingElement) {
+                cancelEditableCell: function (callingElement)
+                {
                     var table = $(callingElement.closest("table")).DataTable().table();
                     var cell = table.cell($(callingElement).parent());
                     // Set cell to it's original value
@@ -93,19 +111,29 @@ define(["jquery"], function($)
             });
 
             // Destroy
-            if (settings === "destroy") {
+            if (settings === "destroy") 
+            {
                 $(table.body()).off("click", "td");
                 table = null;
             }
 
-            if (table != null) {
+            if (table != null) 
+            {
                 // On cell click
-                $(table.body()).on('click', 'td', function () {
+                $(table.body()).on('click', 'td', function () 
+                {
 
                     var currentColumnIndex = table.cell(this).index().column;
+                    var currentRowIndex = table.cell(this).index().row;
+
+                    if(currentColumnIndex === 0 || currentRowIndex === 0)
+                    {
+                        return;
+                    }
 
                     // DETERMINE WHAT COLUMNS CAN BE EDITED
-                    if ((settings.columns && settings.columns.indexOf(currentColumnIndex) > -1) || (!settings.columns)) {
+                    if ((settings.columns && settings.columns.indexOf(currentColumnIndex) > -1) || (!settings.columns)) 
+                    {
                         var row = table.row($(this).parents('tr'));
                         editableCellsRow = row;
 
@@ -115,11 +143,13 @@ define(["jquery"], function($)
                         oldValue = sanitizeCellValue(oldValue);
 
                         // Show input
-                        if (!$(cell).find('input').length && !$(cell).find('select').length && !$(cell).find('textarea').length) {
+                        if (!$(cell).find('input').length && !$(cell).find('select').length && !$(cell).find('textarea').length) 
+                        {
                             // Input CSS
                             var input = getInputHtml(currentColumnIndex, settings, oldValue);
                             $(cell).html(input.html);
-                            if (input.focus) {
+                            if (input.focus) 
+                            {
                                 $('#ejbeatycelledit').focus();
                             }
                         }
@@ -129,14 +159,18 @@ define(["jquery"], function($)
             
         });
 
-        function getInputHtml(currentColumnIndex, settings, oldValue) {
+        function getInputHtml(currentColumnIndex, settings, oldValue) 
+        {
             var inputSetting, inputType, input, inputCss, confirmCss, cancelCss;
 
             input = {"focus":true,"html":null}
 
-            if(settings.inputTypes){
-                $.each(settings.inputTypes, function (index, setting) {
-                    if (setting.column == currentColumnIndex) {
+            if(settings.inputTypes)
+            {
+                $.each(settings.inputTypes, function (index, setting) 
+                {
+                    if (setting.column == currentColumnIndex) 
+                    {
                         inputSetting = setting;
                         inputType = inputSetting.type.toLowerCase();
                     }
@@ -144,15 +178,18 @@ define(["jquery"], function($)
             }
             
             if (settings.inputCss) { inputCss = settings.inputCss; }
-            if (settings.confirmationButton) {
+            if (settings.confirmationButton)
+            {
                 confirmCss = settings.confirmationButton.confirmCss;
                 cancelCss = settings.confirmationButton.cancelCss;
                 inputType = inputType + "-confirm";
             }
-            switch (inputType) {
+            switch (inputType) 
+            {
                 case "list":
                     input.html = "<select class='" + inputCss + "' onchange='$(this).updateEditableCell(this);'>";
-                    $.each(inputSetting.options, function (index, option) {
+                    $.each(inputSetting.options, function (index, option) 
+                    {
                         input.html = input.html + "<option value='" + option.value + "' >" + option.display + "</option>"
                     });
                     input.html = input.html + "</select>";
@@ -160,7 +197,8 @@ define(["jquery"], function($)
                     break;
                 case "list-confirm": // List w/ confirm
                     input.html = "<select class='" + inputCss + "'>";
-                    $.each(inputSetting.options, function (index, option) {
+                    $.each(inputSetting.options, function (index, option) 
+                    {
                         input.html = input.html + "<option value='" + option.value + "' >" + option.display + "</option>"
                     });
                     input.html = input.html + "</select>&nbsp;<a href='javascript:void(0);' class='" + confirmCss + "' onclick='$(this).updateEditableCell(this);'>Confirm</a> <a href='javascript:void(0);' class='" + cancelCss + "' onclick='$(this).cancelEditableCell(this)'>Cancel</a> ";
@@ -169,7 +207,8 @@ define(["jquery"], function($)
                 case "datepicker": //Both datepicker options work best when confirming the values
                 case "datepicker-confirm":
                     // Makesure jQuery UI is loaded on the page
-                    if (typeof $.ui == 'undefined') {
+                    if (typeof $.ui == 'undefined') 
+                    {
                         alert("jQuery UI is required for the DatePicker control but it is not loaded on the page!");
                         break;
                     }
@@ -178,7 +217,8 @@ define(["jquery"], function($)
                     setTimeout(function () { //Set timeout to allow the script to write the input.html before triggering the datepicker 
                         var icon = "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif";
                         // Allow the user to provide icon 
-                        if (typeof inputSetting.options !== 'undefined' && typeof inputSetting.options.icon !== 'undefined') {
+                        if (typeof inputSetting.options !== 'undefined' && typeof inputSetting.options.icon !== 'undefined') 
+                        {
                             icon = inputSetting.options.icon;
                         }
                         var self = $('.datepick').datepicker(
@@ -212,18 +252,23 @@ define(["jquery"], function($)
             $(item).updateEditableCell(item);
         }
 
-        function getInputField(callingElement) {
+        function getInputField(callingElement) 
+        {
             // Update datatables cell value
             var inputField;
-            switch ($(callingElement).prop('nodeName').toLowerCase()) {
+            switch ($(callingElement).prop('nodeName').toLowerCase())
+            {
                 case 'a': // This means they're using confirmation buttons
-                    if ($(callingElement).siblings('input').length > 0) {
+                    if ($(callingElement).siblings('input').length > 0)
+                    {
                         inputField = $(callingElement).siblings('input');
                     }
-                    if ($(callingElement).siblings('select').length > 0) {
+                    if ($(callingElement).siblings('select').length > 0)
+                    {
                         inputField = $(callingElement).siblings('select');
                     }
-                    if ($(callingElement).siblings('textarea').length > 0) {
+                    if ($(callingElement).siblings('textarea').length > 0)
+                    {
                         inputField = $(callingElement).siblings('textarea');
                     }
                 break;
@@ -233,13 +278,16 @@ define(["jquery"], function($)
             return inputField;
         }
 
-        function sanitizeCellValue(cellValue) {
-            if (typeof (cellValue) === 'undefined' || cellValue === null || cellValue.length < 1) {
+        function sanitizeCellValue(cellValue) 
+        {
+            if (typeof (cellValue) === 'undefined' || cellValue === null || cellValue.length < 1) 
+            {
                 return "";
             }
 
             // If not a number
-            if (isNaN(cellValue)) {
+            if (isNaN(cellValue)) 
+            {
                 // escape single quote
                 cellValue = cellValue.replace(/'/g, "&#39;");
             }
