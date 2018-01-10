@@ -1,6 +1,6 @@
 console.log("js/app/main.js entry")
 
-define(["jquery", "jquery-ui", "app/types", "datatables"], function($, jqueryUI, typetab, DataTables) 
+define(["jquery", "jquery-ui", "datatables", "app/types", "app/species"], function($, jqueryUI, DataTables, typetab, speciestab) 
 {
     console.log("js/app/main.js define")
     console.log(typetab);
@@ -26,8 +26,13 @@ define(["jquery", "jquery-ui", "app/types", "datatables"], function($, jqueryUI,
 
 
         $("#tab-types").load("Types.html", function(){
-            console.log("load complete");
-            typetab.Init();
+            console.log("types tab load complete");
+            //typetab.Init();
+        });
+
+        $("#tab-species").load("Species.html", function(){
+            console.log("species tab load complete");
+            //speciestab.Init();
         });
         
         //$("#tabs").draggable("destroy"); 
