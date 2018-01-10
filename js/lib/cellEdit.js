@@ -25,7 +25,7 @@
 
 console.log("js/lib/cellEdit.js entry");
 
-define(["jquery", "datatables"], function($) 
+define(["jquery", "datatables", "select"], function($) 
 {
     console.log("js/lib/cellEdit.js define");
     return function()
@@ -117,18 +117,97 @@ define(["jquery", "datatables"], function($)
                 table = null;
             }
 
+            console.log("Table:")
+            console.log(table.cells());
             if (table != null) 
             {
-                // On cell click
-                $(table.body()).on('click', 'td', function () 
+                
+
+                $(table.body()).on('click', 'td', function() 
                 {
+                    table = $('.dataTable').DataTable();
+
+                    var cell = table.cell(this);
+                    //clicking the upper-left corner cell
+                    if(cell.index().row === 0 && cell.index().column === 0)
+                    {
+                        table.cells('.selected').deselect();
+                        table.cells(function(index, data, node){
+                            return $(node).hasClass('cell') 
+                                && !$(node).hasClass('header-row')
+                                && !$(node).hasClass('header-col')
+                                && !$(node).hasClass('corner');
+                        }).select();
+                        $('.cell').removeClass('last-selected-cell');
+                        table.cell({row: 1, column: 1}).nodes().toJQuery().addClass('last-selected-cell')
+                        event.stopPropagation();
+                    }
+                    else if(cell.index().row === 0)
+                    {
+                        table.cells('.selected').deselect();
+                        table.cells(function(index, data, node){
+                            return index.column === cell.index().column && index.row !== 0;
+                        }).select();
+                        $('.cell').removeClass('last-selected-cell');
+                        table.cell({row: 1, column: cell.index().column}).nodes().toJQuery().addClass('last-selected-cell')
+                        event.stopPropagation();
+                    }
+                    else if(cell.index().column === 0)
+                    {
+                        table.cells('.selected').deselect();
+                        table.cells(function(index, data, node){
+                            return index.row === cell.index().row && index.column !== 0;
+                        }).select();
+                        $('.cell').removeClass('last-selected-cell');
+                        table.cell({row: cell.index().row, column: 1}).nodes().toJQuery().addClass('last-selected-cell')
+                        event.stopPropagation();
+                    }
+
+                    else
+                    {
+                        $('.cell').removeClass('last-selected-cell');
+                        cell.nodes().toJQuery().addClass('last-selected-cell')
+                    }
+                });
+                // On cell click
+                $(document).keypress( function (event) 
+                //$(table.body()).on('click', 'td', function () 
+                {
+                    console.log("Key:");
+                    console.log(event.key);
+                    console.log("Char:");
+                    console.log(event.char); 
+                    // if(event.which !== 13)
+                    // {
+                    //     return;
+                    // }
+
+                    table = $('.dataTable').DataTable();
+
+                    var selected = table.cells(".selected");
+                    if(typeof selected === 'undefined' || selected.length === 0)
+                    {
+                        //return;
+                    }
+
+                    console.log(table);
+                    console.log($('#typeTable').DataTable());
+                    console.log(selected.length);
 
                     var currentColumnIndex = table.cell(this).index().column;
                     var currentRowIndex = table.cell(this).index().row;
 
+                    console.log(currentColumnIndex);
+
                     if(currentColumnIndex === 0 || currentRowIndex === 0)
                     {
                         return;
+                    }
+
+                    if($(table.cell(this)).hasClass("selected"))
+                    {
+                        //event.stopPropagation();
+                        //return;
                     }
 
                     // DETERMINE WHAT COLUMNS CAN BE EDITED

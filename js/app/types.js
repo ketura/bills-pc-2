@@ -61,14 +61,18 @@ define(["jquery", "app/BaseTab", "CellEdit", "datatables", "select", "jquery-ui"
         });
         tableData.push(headerRow);
 
+        console.log("header info: ")
+        console.log(headerRow);
+
         self.pokeTypes.forEach(function(row){
-            columns.push({ data: row, className: 'dt-center'});
+            columns.push({ data: row, className: 'cell dt-center'});
             var dataRow = {name: row};
             self.pokeTypes.forEach(function(col){
                 dataRow[col] = 0;
             });
             tableData.push(dataRow);
         });
+
 
         self.typeDatatable = $("#typeTable").DataTable({
             "data": tableData,
@@ -81,11 +85,27 @@ define(["jquery", "app/BaseTab", "CellEdit", "datatables", "select", "jquery-ui"
             processing: true,
             select: 
             {
-                style: 'single',
-                items: 'cell'
+                style: 'os',
+                items: 'cell',
+                blurable: true
             },
             stateSave: true
         });
+
+        var rowheaders = self.typeDatatable.cells(function(index, data, node){
+            return index.row === 0 && index.column !== 0;
+        });
+        rowheaders.nodes().toJQuery().addClass("header-row");
+
+        var colheaders = self.typeDatatable.cells(function(index, data, node){
+            return index.column === 0 && index.row !== 0;
+        });
+        colheaders.nodes().toJQuery().addClass("header-col");
+
+        var corner = self.typeDatatable.cells(function(index, data, node){
+            return index.column === 0 && index.row === 0;
+        });
+        corner.nodes().toJQuery().addClass("header-corner");
 
 
         // new $.fn.dataTable.Buttons(self.typeDatatable, {
