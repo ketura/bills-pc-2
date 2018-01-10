@@ -1,30 +1,31 @@
-console.log("js/app/BaseTab.js entry")
+if(window.DebugOutput) console.log("js/app/BaseTab.js entry")
 
-function Tab()
+function BaseTab()
 {
-    
     this.$ = null;
-    this.AssignEvents = function() {};
-    this.DestroyControls = function() {};
-    this.BuildControls = function() {};
-    this.RebuildControls = function() 
-    {
-        this.DestroyControls();
-        this.BuildControls();
-    };
-
-    this.Init = function() 
-    {
-        console.log("tab init");
-        this.BuildControls();
-        this.AssignEvents();
-    };
 }
+
+BaseTab.prototype.AssignEvents = function() {};
+BaseTab.prototype.DestroyControls = function() {};
+BaseTab.prototype.BuildControls = function() {};
+BaseTab.prototype.RebuildControls = function() 
+{
+    this.DestroyControls();
+    this.BuildControls();
+};
+
+BaseTab.prototype.Init = function() 
+{
+    console.log("Tab type: " + this.constructor.name);
+    if(window.DebugOutput) console.log("BaseTab init");
+    this.BuildControls();
+    this.AssignEvents();
+};
 
 define(["jquery"], function($) 
 {
-    console.log("js/app/BaseTab.js define")
-    t = new Tab();
+    if(window.DebugOutput) console.log("js/app/BaseTab.js define")
+    t = new BaseTab();
     t.$ = $;
     return t;
 });

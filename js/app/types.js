@@ -1,33 +1,52 @@
-console.log("js/app/types.js entry")
+if(window.DebugOutput) console.log("js/app/types.js entry")
 
-define(["jquery", "app/BaseTab", "CellEdit", "datatables", "select", "jquery-ui"], function($, BaseTab, CellEdit, datatables, select) 
+
+
+define(["jquery", "CellEdit", "datatables", "select", "app/BaseTab", "jquery-ui"], function($, CellEdit, datatables, select) 
 {
-    console.log("js/app/types.js define")
-    console.log(select);
+    if(window.DebugOutput) console.log("js/app/types.js define")
+    //console.log(select);
     CellEdit();
-    tab = BaseTab;
 
-    tab.pokeTypes = ['Fire', 'Water', 'Electric'];
+    function TypeTab()
+    {
+        BaseTab.call(this);
+
+        this.PokeTypes = [];
+        this.typeDatatable = null;
+    }
+
+    TypeTab.prototype = Object.create(BaseTab.prototype);
+    TypeTab.prototype.contructor = TypeTab;
+
+    
+    tab = new TypeTab();
+    console.log(tab);
+
+    tab.PokeTypes = ['Fire', 'Water', 'Electric'];
     tab.typeDatatable = null;
 
     //The $(callback) function is basically something which runs after the entire document has been loaded.
     $(function () {
-        console.log("js/app/types.js actual")
-        tab.Init();
+        if(window.DebugOutput) console.log("js/app/types.js actual")
+        console.log("type load");
+        
+        //this can't be called here, since this is going to get hit before main actually loads.  It will need to be in the js of each page that uses it.
+        //tab.Init();
     });
 
-    tab.AssignEvents = function()
+    TypeTab.prototype.AssignEvents = function()
     {
         // console.log("assigning");
         // console.log(tab);
         $('[name=btnAddType]').on('click', function()
         {
-            tab.pokeTypes.push($('#inNewType').val());
+            tab.PokeTypes.push($('#inNewType').val());
             tab.RebuildControls();
         });
     };
 
-    tab.DestroyControls = function()
+    TypeTab.prototype.DestroyControls = function()
     {
         var self = this;
         // console.log("destroy");
@@ -38,13 +57,13 @@ define(["jquery", "app/BaseTab", "CellEdit", "datatables", "select", "jquery-ui"
         $('#typeTable').empty();
     };
 
-    tab.UpdateCell = function(cell, row, col, oldValue)
+    TypeTab.prototype.UpdateCell = function(cell, row, col, oldValue)
     {
-        console.log("Updated data in (" + col + ", " + row + ")");
-        console.log("New value: " + cell.data() + "; old value: " + oldValue);
+        //console.log("Updated data in (" + col + ", " + row + ")");
+        //console.log("New value: " + cell.data() + "; old value: " + oldValue);
     }
 
-    tab.BuildControls = function () 
+    TypeTab.prototype.BuildControls = function () 
     {
         var self = this;
         // console.log("build");
@@ -56,18 +75,18 @@ define(["jquery", "app/BaseTab", "CellEdit", "datatables", "select", "jquery-ui"
             { data: 'name', className: 'dt-center'}
         ];
 
-        self.pokeTypes.forEach(function(row){
+        self.PokeTypes.forEach(function(row){
             headerRow[row] = row;
         });
         tableData.push(headerRow);
 
-        console.log("header info: ")
-        console.log(headerRow);
+        //console.log("header info: ")
+        //console.log(headerRow);
 
-        self.pokeTypes.forEach(function(row){
+        self.PokeTypes.forEach(function(row){
             columns.push({ data: row, className: 'cell dt-center'});
             var dataRow = {name: row};
-            self.pokeTypes.forEach(function(col){
+            self.PokeTypes.forEach(function(col){
                 dataRow[col] = 0;
             });
             tableData.push(dataRow);

@@ -1,20 +1,30 @@
-console.log("js/app/species.js entry")
+if(window.DebugOutput) console.log("js/app/species.js entry")
 
-define(["jquery", "app/BaseTab", "jquery-ui"], function($, BaseTab) 
+define(["jquery", "app/BaseTab", "jquery-ui"], function($) 
 {
-    console.log("js/app/species.js define")
-    tab = BaseTab;
+    function SpeciesTab()
+    {
+        BaseTab.call(this);
 
-    tab.pokeTypes = ['Fire', 'Water', 'Electric'];
-    tab.typeDatatable = null;
+        this.Species = [];
+    }
+
+    SpeciesTab.prototype = Object.create(BaseTab.prototype);
+    SpeciesTab.prototype.contructor = SpeciesTab;
+
+    if(window.DebugOutput) console.log("js/app/species.js define")
+    tab = new SpeciesTab();
+
+    tab.Species = [];
 
     //The $(callback) function is basically something which runs after the entire document has been loaded.
     $(function () {
-        console.log("js/app/species.js actual")
-        tab.Init();
+        console.log("species load");
+        if(window.DebugOutput) console.log("js/app/species.js actual")
+        //tab.Init();
     });
 
-    tab.AssignEvents = function()
+    SpeciesTab.prototype.AssignEvents = function()
     {
         // console.log("assigning");
         // console.log(tab);
@@ -25,7 +35,7 @@ define(["jquery", "app/BaseTab", "jquery-ui"], function($, BaseTab)
         // });
     };
 
-    tab.DestroyControls = function()
+    SpeciesTab.prototype.DestroyControls = function()
     {
         // var self = this;
         // // console.log("destroy");
@@ -36,7 +46,7 @@ define(["jquery", "app/BaseTab", "jquery-ui"], function($, BaseTab)
         // $('#typeTable').empty();
     };
 
-    tab.BuildControls = function () 
+    SpeciesTab.prototype.BuildControls = function () 
     {
         $(".accordion").accordion({
             collapsible: true,

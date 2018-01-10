@@ -23,17 +23,17 @@
  * For details please refer to: http://www.datatables.net
  */
 
-console.log("js/lib/cellEdit.js entry");
+if(window.DebugOutput) console.log("js/lib/cellEdit.js entry");
 
 define(["jquery", "datatables", "select"], function($) 
 {
-    console.log("js/lib/cellEdit.js define");
+    if(window.DebugOutput) console.log("js/lib/cellEdit.js define");
     return function()
     {
-        console.log("js/lib/cellEdit.js actual");
+        if(window.DebugOutput) console.log("js/lib/cellEdit.js actual");
         $.fn.dataTable.Api.register('MakeCellsEditable()', function (settings) 
         {
-            console.log("js/lib/cellEdit.js MakeCellsEditable");
+            if(window.DebugOutput) console.log("js/lib/cellEdit.js MakeCellsEditable");
             var table = this.table();
 
             $.fn.extend({
@@ -117,13 +117,13 @@ define(["jquery", "datatables", "select"], function($)
                 table = null;
             }
 
-            console.log("Table:")
-            console.log(table.cells());
+            //console.log("Table:")
+            //console.log(table.cells());
             if (table != null) 
             {
                 
 
-                $(table.body()).on('click', 'td', function() 
+                $(table.body()).on('click', 'td', function(event) 
                 {
                     table = $('.dataTable').DataTable();
 
@@ -190,9 +190,8 @@ define(["jquery", "datatables", "select"], function($)
                         //return;
                     }
 
-                    console.log(table);
-                    console.log($('#typeTable').DataTable());
-                    console.log(selected.length);
+                    //var cell = table.cell('.last-')
+
 
                     var currentColumnIndex = table.cell(this).index().column;
                     var currentRowIndex = table.cell(this).index().row;

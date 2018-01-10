@@ -6,7 +6,7 @@
 
 
 
-console.log("js/common.js entry")
+if(window.DebugOutput) console.log("js/common.js entry")
 
 requirejs.config(
 {

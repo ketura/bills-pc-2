@@ -1,13 +1,14 @@
-console.log("js/types.js entry")
+window.DebugOutput = true;
+
+if(window.DebugOutput) console.log("js/types.js entry")
 
 requirejs(['./common'], function (common) 
 {
-    requirejs(["jquery", "BaseTab", 'app/types'], function($, BaseTab, types)
+    if(window.DebugOutput) console.log("js/types.js outer require")
+    return requirejs(["jquery", "BaseTab", 'app/types'], function($, BaseTab, types)
     {
-        console.log("js/types.js require")
-        console.log(types);
+        if(window.DebugOutput) console.log("js/types.js require")
+        types.Init();
         return types;
-        //types($);
-        //InitTypeTab();
     });
 });
