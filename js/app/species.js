@@ -48,12 +48,15 @@ define(["jquery", "app/BaseTab", "jquery-ui"], function($)
 
     SpeciesTab.prototype.BuildControls = function () 
     {
+        //Accordion layout outlined here: https://stackoverflow.com/a/13315683/888539
         $(".accordion").accordion({
             collapsible: true,
             active: 0,
             heightStyle: "content",
             animate: 300
         })
+
+        $(".toggle").checkboxradio();
 
     }
 

@@ -1,0 +1,65 @@
+label 
+{
+  /*background-color: lightblue;*/
+}
+
+input.numeric
+{
+	width: 45px;
+}
+
+.accordion
+{
+	width: 100%;
+}
+
+.accordion-content
+{
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: flex-start;
+	align-content: space-between;
+	border: 1px solid blue;
+	padding: 5px;
+}
+
+.label-pair
+{
+	margin: auto;
+	padding: 5px;
+	display: flex;
+	align-items: center;
+	/*border: 1px solid red;*/
+}
+
+label
+{
+	padding: 5px;
+	display: inline-block;
+}
+
+#pokedex-lore, #txt-pokedex-entry
+{
+	flex: 2;
+}
+
+#txt-pokedex-entry
+{
+	height: 100;
+	min-width: 150;
+}
+
+#pokedex-numbers
+{
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+	align-content: space-between;
+	border: 1px solid blue;
+	padding: 5px;
+	flex: 1,3;
+}

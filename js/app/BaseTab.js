@@ -3,6 +3,7 @@ if(window.DebugOutput) console.log("js/app/BaseTab.js entry")
 function BaseTab()
 {
     this.$ = null;
+    this.Data = null;
 }
 
 BaseTab.prototype.AssignEvents = function() {};

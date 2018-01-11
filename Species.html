@@ -5,11 +5,12 @@
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
         <title>Ketura's PC</title>
 
+        <link rel="stylesheet" type="text/css" href="css/species.css">
         <script data-main="js/species" src="js/lib/require.js"></script>
 
     </head>
     <body>
-        <div id="tab-body">
+      <div id="tab-body">
 			<div id="species-header-panel">
 
 			</div>
@@ -17,10 +18,25 @@
         
         <div class="accordion">
           <h3>Lore</h3>
-          <div>
-            National Pokedex Number
-            Legendary
-            Pokedex Entry
+          <div class="accordion-content">
+            <div id="pokedex-numbers">
+              <div class="label-pair">
+                <label for="txt-pokedex-number">National Pokedex Number: </label>
+                <input class="numeric" id="txt-pokedex-number">
+              </div>
+              <div class="label-pair">
+                <label for="txt-canon-pokedex-number">Canon National Pokedex Number: </label>
+                <input class="numeric" id="txt-canon-pokedex-number">
+              </div>
+            </div>
+            <div class="label-pair">
+              <label for="chk-Legendary">Legendary</label>
+              <input class="toggle" type="checkbox" name="chk-Legendary" id="chk-Legendary">
+            </div>
+            <div class="label-pair" id="pokedex-lore">
+              <label for="txt-pokedex-entry">Pokedex Entry: </label>
+              <textarea id="txt-pokedex-entry"></textarea>
+            </div>
           </div>
         </div>
 
