@@ -1,6 +1,6 @@
 if(window.DebugOutput) console.log("js/app/species.js entry")
 
-define(["jquery", "app/BaseTab", "jquery-ui"], function($) 
+define(["jquery", "pokeapi-js-wrapper", "app/BaseTab", "jquery-ui"], function($, PokeAPI) 
 {
     function SpeciesTab()
     {
@@ -16,6 +16,13 @@ define(["jquery", "app/BaseTab", "jquery-ui"], function($)
     tab = new SpeciesTab();
 
     tab.Species = [];
+
+    console.log(PokeAPI);
+    var pokedex = new PokeAPI.Pokedex();
+    pokedex.getPokemonByName('eevee')
+        .then(function(response){
+            console.log(response);
+        });
 
     //The $(callback) function is basically something which runs after the entire document has been loaded.
     $(function () {
@@ -56,7 +63,7 @@ define(["jquery", "app/BaseTab", "jquery-ui"], function($)
             animate: 300
         })
 
-        $(".toggle").checkboxradio();
+        $('input[type="checkbox"]').checkboxradio();
 
     }
 

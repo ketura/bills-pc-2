@@ -23,6 +23,8 @@ requirejs.config(
         ,"select": "lib/Select-1.2.4/js/dataTables.select"
         ,"BaseTab": "app/BaseTab"
         ,"CellEdit": "lib/cellEdit"
+        ,"pokeapi-js-wrapper": "lib/PokeAPI-JS-wrapper-1.0.0/js/pokeapi-js-wrapper.min"
+        ,"localforage": "lib/localForage-1.5.5/js/localforage.min"
     },
     onNodeCreated: function(node, config, module, path) 
     {
@@ -43,7 +45,9 @@ requirejs.config(
       // '*' means all modules will get 'jquery-private'
       // for their 'jquery' dependency.
       '*': { 'jquery': 'jquery-private' },
+      '*': { 'PokeAPI': 'pokeapi-js-wrapper' },
       '*': { 'datatables.net': 'datatables' },
+      
 
       // 'jquery-private' wants the real jQuery module
       // though. If this line was not here, there would
