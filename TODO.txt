@@ -7,6 +7,9 @@
 	https://github.com/ejbeaty/CellEdit/blob/master/js/dataTables.cellEdit.js
 	https://editor.datatables.net/extensions/Editor/js/dataTables.editor.min.js
 	
+- cell shading (red to green)
+- manual "reload canon" button
+- manual "clear pokeapi cache" button
 
 
 the following is the load order:

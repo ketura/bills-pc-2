@@ -2,7 +2,8 @@ if(window.DebugOutput) console.log("js/app/types.js entry")
 
 
 
-define(["jquery", "CellEdit", "datatables", "select", "app/BaseTab", "jquery-ui"], function($, CellEdit, datatables, select) 
+define(["jquery", "CellEdit", "PokeAPI", "datatables", "select", "app/BaseTab", "jquery-ui"]
+    , function($,  CellEdit,   PokeAPI,   datatables,   select) 
 {
     if(window.DebugOutput) console.log("js/app/types.js define")
     //console.log(select);
@@ -23,7 +24,30 @@ define(["jquery", "CellEdit", "datatables", "select", "app/BaseTab", "jquery-ui"
     tab = new TypeTab();
     console.log(tab);
 
-    tab.PokeTypes = ['Fire', 'Water', 'Electric'];
+    PokeAPI.getTypesList()
+    .then(function(response){
+        //https://stackoverflow.com/a/39333479/888539
+        console.log("types complete");
+        console.log(response.results);
+        let typeNames = [];
+        let idRegex = /\/(\d+)\/$/;
+        response.results.forEach(function(x){
+            let match = x.url.match(idRegex);
+            if(match[1] < 100)
+            {
+                let name = x.name.charAt(0).toUpperCase() + x.name.slice(1);
+                typeNames.push(name);
+            }
+            tab.PokeTypes = typeNames;
+            
+        });
+
+        console.log(typeNames);
+        tab.RebuildControls();
+    });
+
+
+    tab.PokeTypes = [];
     tab.typeDatatable = null;
 
     //The $(callback) function is basically something which runs after the entire document has been loaded.
@@ -65,6 +89,7 @@ define(["jquery", "CellEdit", "datatables", "select", "app/BaseTab", "jquery-ui"
 
     TypeTab.prototype.BuildControls = function () 
     {
+        console.log("BuildControls");
         var self = this;
         // console.log("build");
         // console.log(self);

@@ -10,7 +10,15 @@ function Species(name)
 	this.PokedexEntry = "";
 	this.Types = {};
 	this.BaseStats = {};
-	
+	this.StatVariance = {};
+	this.Gender = "";
+	this.GendermaleSpread = 0.5;
+	this.Dimorphism = {
+		Male: {},
+		Female: {}
+	};
+	this.EvolvesFrom: "";
+	this.EvolvesInto: 
 
 }
 
@@ -18,7 +26,7 @@ function Species(name)
 
 define(["jquery"], function($) 
 {
-    if(window.DebugOutput) console.log("js/app/BaseTab.js define")
+    if(window.DebugOutput) console.log("js/app/SpeciesDefinition.js define")
     t = new BaseTab();
     t.$ = $;
     return t;

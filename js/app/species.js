@@ -1,6 +1,6 @@
 if(window.DebugOutput) console.log("js/app/species.js entry")
 
-define(["jquery", "pokeapi-js-wrapper", "app/BaseTab", "jquery-ui"], function($, PokeAPI) 
+define(["jquery", "PokeAPI", "app/BaseTab", "jquery-ui"], function($, PokeAPI) 
 {
     function SpeciesTab()
     {
@@ -18,8 +18,7 @@ define(["jquery", "pokeapi-js-wrapper", "app/BaseTab", "jquery-ui"], function($,
     tab.Species = [];
 
     console.log(PokeAPI);
-    var pokedex = new PokeAPI.Pokedex();
-    pokedex.getPokemonByName('eevee')
+    PokeAPI.getPokemonByName('eevee')
         .then(function(response){
             console.log(response);
         });

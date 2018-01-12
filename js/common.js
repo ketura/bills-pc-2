@@ -24,6 +24,7 @@ requirejs.config(
         ,"BaseTab": "app/BaseTab"
         ,"CellEdit": "lib/cellEdit"
         ,"pokeapi-js-wrapper": "lib/PokeAPI-JS-wrapper-1.0.0/js/pokeapi-js-wrapper.min"
+        ,"PokeAPI": "app/PokeAPI"
         ,"localforage": "lib/localForage-1.5.5/js/localforage.min"
     },
     onNodeCreated: function(node, config, module, path) 
