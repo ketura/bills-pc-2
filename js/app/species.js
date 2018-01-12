@@ -1,6 +1,6 @@
 if(window.DebugOutput) console.log("js/app/species.js entry")
 
-define(["jquery", "PokeAPI", "app/BaseTab", "jquery-ui"], function($, PokeAPI) 
+define(["jquery", "PokeAPI", "app/data/SpeciesDefinition", "app/data/RenegadeData", "app/BaseTab", "jquery-ui"], function($, PokeAPI, SpeciesDef, RenegadeData) 
 {
     function SpeciesTab()
     {
@@ -13,15 +13,11 @@ define(["jquery", "PokeAPI", "app/BaseTab", "jquery-ui"], function($, PokeAPI)
     SpeciesTab.prototype.contructor = SpeciesTab;
 
     if(window.DebugOutput) console.log("js/app/species.js define")
-    tab = new SpeciesTab();
+    let tab = new SpeciesTab();
 
     tab.Species = [];
 
     console.log(PokeAPI);
-    PokeAPI.getPokemonByName('eevee')
-        .then(function(response){
-            console.log(response);
-        });
 
     //The $(callback) function is basically something which runs after the entire document has been loaded.
     $(function () {
@@ -34,11 +30,11 @@ define(["jquery", "PokeAPI", "app/BaseTab", "jquery-ui"], function($, PokeAPI)
     {
         // console.log("assigning");
         // console.log(tab);
-        // $('[name=btnAddType]').on('click', function()
-        // {
-        //     tab.pokeTypes.push($('#inNewType').val());
-        //     tab.RebuildControls();
-        // });
+        $('#btnSave').on('click', function()
+        {
+            console.log(tab);
+            tab.SaveData();
+        });
     };
 
     SpeciesTab.prototype.DestroyControls = function()
@@ -64,7 +60,17 @@ define(["jquery", "PokeAPI", "app/BaseTab", "jquery-ui"], function($, PokeAPI)
 
         $('input[type="checkbox"]').checkboxradio();
 
-    }
+    };
+
+    SpeciesTab.prototype.SaveData = function()
+    {
+        var def = new SpeciesDef();
+        console.log(def);
+        def.NationalPokedexNumber = $('#txt-pokedex-number').val() || 0;
+        def.CanonPokedexNumber = $('#txt-canon-pokedex-number').val() || 0;
+
+        RenegadeData.SetData("SpeciesTab", def);
+    };
 
     return tab;
 });  

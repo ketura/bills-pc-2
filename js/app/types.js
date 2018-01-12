@@ -2,8 +2,8 @@ if(window.DebugOutput) console.log("js/app/types.js entry")
 
 
 
-define(["jquery", "CellEdit", "PokeAPI", "datatables", "select", "app/BaseTab", "jquery-ui"]
-    , function($,  CellEdit,   PokeAPI,   datatables,   select) 
+define(["jquery", "CellEdit", "datatables", "select", "app/data/RenegadeData", "localforage", "app/BaseTab", "jquery-ui"]
+    , function($,  CellEdit,  datatables,   select, RData, localforage) 
 {
     if(window.DebugOutput) console.log("js/app/types.js define")
     //console.log(select);
@@ -21,30 +21,17 @@ define(["jquery", "CellEdit", "PokeAPI", "datatables", "select", "app/BaseTab", 
     TypeTab.prototype.contructor = TypeTab;
 
     
-    tab = new TypeTab();
-    console.log(tab);
-
-    PokeAPI.getTypesList()
-    .then(function(response){
-        //https://stackoverflow.com/a/39333479/888539
-        console.log("types complete");
-        console.log(response.results);
-        let typeNames = [];
-        let idRegex = /\/(\d+)\/$/;
-        response.results.forEach(function(x){
-            let match = x.url.match(idRegex);
-            if(match[1] < 100)
-            {
-                let name = x.name.charAt(0).toUpperCase() + x.name.slice(1);
-                typeNames.push(name);
-            }
-            tab.PokeTypes = typeNames;
-            
-        });
-
-        console.log(typeNames);
+    let tab = new TypeTab();
+    console.log("Here");
+    console.log(RData);
+    RData.GetData("Types", function (data){
+        console.log(data);
+        tab.PokeTypes = data || [];
         tab.RebuildControls();
     });
+    //localforage.getItem("RenegadeData/Types", poo);
+
+    
 
 
     tab.PokeTypes = [];
@@ -74,10 +61,14 @@ define(["jquery", "CellEdit", "PokeAPI", "datatables", "select", "app/BaseTab", 
     {
         var self = this;
         // console.log("destroy");
-        // console.log(self);
+         console.log(self);
+         console.log(self.typeDatatable);
 
-        self.typeDatatable.MakeCellsEditable("destroy");
-        self.typeDatatable.destroy();
+        if(self.typeDatatable !== null)
+        {
+            self.typeDatatable.MakeCellsEditable("destroy");
+            self.typeDatatable.destroy();
+        }
         $('#typeTable').empty();
     };
 

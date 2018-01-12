@@ -5,7 +5,7 @@ function Species(name)
 	this.Version = 1;
 	this.Notes = "";
 	this.NationalPokedexNumber = 0;
-	this.PokedexNumber = 0;
+	this.CanonPokedexNumber = 0;
 	this.Legendary = false;
 	this.PokedexEntry = "";
 	this.Types = {};
@@ -17,8 +17,8 @@ function Species(name)
 		Male: {},
 		Female: {}
 	};
-	this.EvolvesFrom: "";
-	this.EvolvesInto: 
+	this.EvolvesFrom = "";
+	this.EvolvesInto = {}
 
 }
 
@@ -27,7 +27,5 @@ function Species(name)
 define(["jquery"], function($) 
 {
     if(window.DebugOutput) console.log("js/app/SpeciesDefinition.js define")
-    t = new BaseTab();
-    t.$ = $;
-    return t;
+    return Species;
 });
