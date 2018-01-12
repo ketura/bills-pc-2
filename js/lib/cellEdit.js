@@ -173,24 +173,28 @@ define(["jquery", "datatables", "select"], function($)
                 $(document).keypress( function (event) 
                 //$(table.body()).on('click', 'td', function () 
                 {
-                    console.log("Key:");
-                    console.log(event.key);
-                    console.log("Char:");
-                    console.log(event.char); 
+                    // console.log("Key:");
+                    // console.log(event.key);
+                    // console.log("Char:");
+                    // console.log(event.char); 
                     // if(event.which !== 13)
                     // {
                     //     return;
                     // }
 
                     table = $('.dataTable').DataTable();
-
+                    
                     var selected = table.cells(".selected");
                     if(typeof selected === 'undefined' || selected.length === 0)
                     {
                         //return;
                     }
 
-                    //var cell = table.cell('.last-')
+                    if(table.cell(this).length === 0)
+                    {
+                        return;
+                    }
+                    console.log(cell);
 
 
                     var currentColumnIndex = table.cell(this).index().column;

@@ -1,9 +1,10 @@
 if(window.DebugOutput) console.log("js/app/BaseTab.js entry")
 
-function BaseTab()
+function BaseTab($)
 {
-    this.$ = null;
+    this.$ = $;
     this.Data = null;
+    this.DataPath = "";
 }
 
 BaseTab.prototype.AssignEvents = function() {};
@@ -23,10 +24,40 @@ BaseTab.prototype.Init = function()
     this.AssignEvents();
 };
 
-define(["jquery"], function($) 
+
+BaseTab.prototype.UpdateData = function(data) 
+{
+    this.Data = data;
+};
+
+BaseTab.prototype.PopulateData = function(data) {};
+
+
+define(["jquery", "app/data/RenegadeData"], function($, RenegadeData) 
 {
     if(window.DebugOutput) console.log("js/app/BaseTab.js define")
+
     t = new BaseTab();
     t.$ = $;
+
+    BaseTab.prototype.LoadData = function() 
+    {
+        let self = this;
+        RenegadeData.GetData(this.DataPath, function(data){
+            self.UpdateData(data);
+            self.PopulateData();
+        });
+    };
+
+    BaseTab.prototype.SaveData = function()
+    {
+        RenegadeData.SetData(this.DataPath, this.Data);
+    };
+    
+    BaseTab.prototype.ClearData = function()
+    {
+        RenegadeData.ClearData(this.DataPath);
+    };
+
     return t;
 });

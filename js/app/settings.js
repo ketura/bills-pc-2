@@ -1,61 +1,43 @@
-if(window.DebugOutput) console.log("js/app/species.js entry")
+if(window.DebugOutput) console.log("js/app/settings.js entry")
 
-define(["jquery", "PokeAPI", "app/data/SpeciesDefinition", "app/data/RenegadeData", "app/BaseTab", "jquery-ui"], function($, PokeAPI, SpeciesDef, RenegadeData) 
+define(["jquery", "app/data/RenegadeData", "app/BaseTab", "jquery-ui"], function($, RenegadeData) 
 {
-    function SpeciesTab()
+    function SettingsTab()
     {
         BaseTab.call(this, $);
 
         this.Species = [];
-        this.DataPath = "SpeciesTab";
+        this.DataPath = "SettingsTab";
     }
 
-    SpeciesTab.prototype = Object.create(BaseTab.prototype);
-    SpeciesTab.prototype.contructor = SpeciesTab;
+    SettingsTab.prototype = Object.create(BaseTab.prototype);
+    SettingsTab.prototype.contructor = SettingsTab;
 
-    if(window.DebugOutput) console.log("js/app/species.js define")
-    let tab = new SpeciesTab();
+    if(window.DebugOutput) console.log("js/app/settings.js define")
+    let tab = new SettingsTab();
 
     tab.Species = [];
 
-    console.log(PokeAPI);
 
     //The $(callback) function is basically something which runs after the entire document has been loaded.
     $(function () {
-        console.log("species load");
-        if(window.DebugOutput) console.log("js/app/species.js actual")
+        console.log("settings load");
+        if(window.DebugOutput) console.log("js/app/settings.js actual")
         tab.LoadData();
         //tab.Init();
     });
 
-    SpeciesTab.prototype.AssignEvents = function()
+    SettingsTab.prototype.AssignEvents = function()
     {
-        // console.log("assigning");
-        // console.log(tab);
-        $('#btnSave').click(function()
-        {
-            console.log(tab);
-            tab.UpdateData();
-            tab.SaveData();
-        });
 
-        $('input').change(function(){
-            tab.UpdateData();
-        });
     };
 
-    SpeciesTab.prototype.DestroyControls = function()
+    SettingsTab.prototype.DestroyControls = function()
     {
-        // var self = this;
-        // // console.log("destroy");
-        // // console.log(self);
 
-        // self.typeDatatable.MakeCellsEditable("destroy");
-        // self.typeDatatable.destroy();
-        // $('#typeTable').empty();
     };
 
-    SpeciesTab.prototype.BuildControls = function () 
+    SettingsTab.prototype.BuildControls = function () 
     {
         console.log("building");
         console.log($('input[type="checkbox"]'));
@@ -71,7 +53,7 @@ define(["jquery", "PokeAPI", "app/data/SpeciesDefinition", "app/data/RenegadeDat
 
     };
 
-    SpeciesTab.prototype.PopulateData = function()
+    SettingsTab.prototype.PopulateData = function()
     {
         console.log("PopulateData");
         console.log($('#chk-Legendary').checkboxradio());
@@ -85,7 +67,7 @@ define(["jquery", "PokeAPI", "app/data/SpeciesDefinition", "app/data/RenegadeDat
 
     };
 
-    SpeciesTab.prototype.UpdateData = function(data)
+    SettingsTab.prototype.UpdateData = function(data)
     {
         if(typeof(data) !== 'undefined' && data !== null)
         {

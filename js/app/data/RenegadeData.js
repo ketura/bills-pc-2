@@ -38,16 +38,23 @@ RenegadeData.prototype.LoadJSON = function (path, name)
 	return json;
 };
 
-RenegadeData.prototype.SetData = function (name, json)
+RenegadeData.prototype.SetData = function (name, json, callback)
 {
+	console.log("Saving " + this.forageBasePath + "/" + name);
 	this[name] = json;
-	this.localforage.setItem(this.forageBasePath + "/" + name, json);
+	this.localforage.setItem(this.forageBasePath + "/" + name, json).then(callback);
 };
 
 RenegadeData.prototype.GetData = function(name, callback)
 {
 	console.log("Retrieving " + this.forageBasePath + "/" + name);
 	this.localforage.getItem(this.forageBasePath + "/" + name).then(callback);
+};
+
+RenegadeData.prototype.ClearData = function(name, callback)
+{
+	console.log("Clearing " + this.forageBasePath + "/" + name);
+	this.localforage.removeItem(this.forageBasePath + "/" + name).then(callback);
 };
 
 

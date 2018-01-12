@@ -32,13 +32,13 @@ define(["jquery", "jquery-ui", "datatables", "app/types", "app/species"], functi
 
         console.log("tab loads");
         console.log("type loading");
-        $("#tab-types").load("Types.html", function(){
+        $("#types").load("Types.html", function(){
             if(window.DebugOutput) console.log("types tab load complete");
             typeTab.Init();
         });
 
         console.log("species loading");
-        $("#tab-species").load("Species.html", function(){
+        $("#species").load("Species.html", function(){
             if(window.DebugOutput) console.log("species tab load complete");
             speciesTab.Init();
         });
