@@ -1,7 +1,7 @@
 
 function Species(name)
 {
-	this.Name = name;
+	this.Name = name || "";
 	this.Version = 1;
 	this.Notes = "";
 	this.NationalPokedexNumber = 0;

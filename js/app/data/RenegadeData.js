@@ -62,9 +62,9 @@ RenegadeData.prototype.ClearData = function(name, callback)
 
 function GetRenegadeData($, localforage, PokeAPI) 
 {
-	console.log("getdata");
-	console.log(localforage);
 	if(window.DebugOutput) console.log("js/app/RenegadeData.js define")
+	console.log("GetRenegadeData");
+	console.log(GetRenegadeData.data);
 	if(typeof GetRenegadeData.data == 'undefined')
 	{
 		GetRenegadeData.data = new RenegadeData();

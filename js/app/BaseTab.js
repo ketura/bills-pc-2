@@ -2,7 +2,7 @@ if(window.DebugOutput) console.log("js/app/BaseTab.js entry")
 
 function BaseTab($)
 {
-    this.$ = $;
+    //this.$ = $;
     this.Data = null;
     this.DataPath = "";
 }
@@ -42,10 +42,15 @@ define(["jquery", "app/data/RenegadeData"], function($, RenegadeData)
 
     BaseTab.prototype.LoadData = function() 
     {
+        console.log("loading");
+        console.log(this);
         let self = this;
         RenegadeData.GetData(this.DataPath, function(data){
+            console.log("renegade data returned");
+            console.log(data);
             self.UpdateData(data);
             self.PopulateData();
+            console.log("load complete");
         });
     };
 

@@ -18,12 +18,12 @@ define(["jquery", "PokeAPI", "app/data/SpeciesDefinition", "app/data/RenegadeDat
 
     tab.Species = [];
 
-    console.log(PokeAPI);
-
     //The $(callback) function is basically something which runs after the entire document has been loaded.
     $(function () {
-        console.log("species load");
+        
         if(window.DebugOutput) console.log("js/app/species.js actual")
+        console.log("species load");
+        console.log($);
         tab.LoadData();
         //tab.Init();
     });
@@ -57,8 +57,6 @@ define(["jquery", "PokeAPI", "app/data/SpeciesDefinition", "app/data/RenegadeDat
 
     SpeciesTab.prototype.BuildControls = function () 
     {
-        console.log("building");
-        console.log($('input[type="checkbox"]'));
         //Accordion layout outlined here: https://stackoverflow.com/a/13315683/888539
         $(".accordion").accordion({
             collapsible: true,
@@ -74,7 +72,10 @@ define(["jquery", "PokeAPI", "app/data/SpeciesDefinition", "app/data/RenegadeDat
     SpeciesTab.prototype.PopulateData = function()
     {
         console.log("PopulateData");
+        console.log($(document));
         console.log($('#chk-Legendary').checkboxradio());
+        console.log($('#txt-pokedex-number'));
+        console.log(tab.Data);
 
         $('#txt-pokedex-number').val(tab.Data.NationalPokedexNumber);
         $('#txt-canon-pokedex-number').val(tab.Data.CanonPokedexNumber);
@@ -82,11 +83,14 @@ define(["jquery", "PokeAPI", "app/data/SpeciesDefinition", "app/data/RenegadeDat
         $('#txt-pokedex-entry').val(tab.Data.PokedexEntry);
 
         $('input[type="checkbox"]').trigger("change");
+        console.log("populate should have finished");
 
     };
 
     SpeciesTab.prototype.UpdateData = function(data)
     {
+        console.log("updating");
+        console.log(data);
         if(typeof(data) !== 'undefined' && data !== null)
         {
             tab.Data = data;

@@ -22,8 +22,7 @@ define(["jquery", "CellEdit", "datatables", "select", "app/data/RenegadeData", "
 
     
     let tab = new TypeTab();
-    console.log("Here");
-    console.log(RData);
+
     RData.GetData("Types", function (data){
         console.log(data);
         tab.PokeTypes = data || [];
