@@ -19,12 +19,13 @@ define(["jquery", "PokeAPI", "app/data/SpeciesDefinition", "app/data/RenegadeDat
     tab.Species = [];
 
     //The $(callback) function is basically something which runs after the entire document has been loaded.
+    //$( window ).on( "load", function () {
     $(function () {
         
         if(window.DebugOutput) console.log("js/app/species.js actual")
         console.log("species load");
         console.log($);
-        tab.LoadData();
+        //tab.LoadData();
         //tab.Init();
     });
 
@@ -73,8 +74,10 @@ define(["jquery", "PokeAPI", "app/data/SpeciesDefinition", "app/data/RenegadeDat
     {
         console.log("PopulateData");
         console.log($(document));
+        
         console.log($('#chk-Legendary').checkboxradio());
         console.log($('#txt-pokedex-number'));
+        console.log("tab.Data:")
         console.log(tab.Data);
 
         $('#txt-pokedex-number').val(tab.Data.NationalPokedexNumber);

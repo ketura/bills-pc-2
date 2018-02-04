@@ -22,15 +22,20 @@ BaseTab.prototype.Init = function()
     if(window.DebugOutput) console.log("BaseTab init");
     this.BuildControls();
     this.AssignEvents();
+    this.LoadData();
 };
 
+BaseTab.prototype.LoadData = function() {};
+BaseTab.prototype.SaveData = function() {};
+BaseTab.prototype.ClearData = function() {};
+BaseTab.prototype.PopulateData = function(data) {};
 
 BaseTab.prototype.UpdateData = function(data) 
 {
     this.Data = data;
 };
 
-BaseTab.prototype.PopulateData = function(data) {};
+
 
 
 define(["jquery", "app/data/RenegadeData"], function($, RenegadeData) 

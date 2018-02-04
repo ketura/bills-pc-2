@@ -5,6 +5,26 @@ if(window.DebugOutput) console.log("js/app/main.js entry")
 define(["jquery", "jquery-ui", "datatables", "app/types", "app/species"], function($, jqueryUI, DataTables, typeTab, speciesTab) 
 {
     if(window.DebugOutput) console.log("js/app/main.js define")
+
+    function FinalLoad()
+    {
+        if(window.DebugOutput) console.log("All tabs succesfully loaded.  Initializing tab content.");
+        typeTab.Init();
+        speciesTab.Init();
+    }
+
+    function TabLoad(tabname)
+    {
+        if(window.DebugOutput) console.log(tabname + " load complete");
+        tabs--;
+        if(tabs == 0)
+        {
+            FinalLoad();
+        }
+    }
+
+    //this needs to be maintained
+    let tabs = 2;
     
 
     $( function() 
@@ -33,14 +53,12 @@ define(["jquery", "jquery-ui", "datatables", "app/types", "app/species"], functi
         console.log("tab loads");
         console.log("type loading");
         $("#types").load("Types.html", function(){
-            if(window.DebugOutput) console.log("types tab load complete");
-            typeTab.Init();
+            TabLoad("types tab");
         });
 
         console.log("species loading");
         $("#species").load("Species.html", function(){
-            if(window.DebugOutput) console.log("species tab load complete");
-            speciesTab.Init();
+            TabLoad("species tab");
         });
         console.log("loading complete");
         

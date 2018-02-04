@@ -1,4 +1,4 @@
-window.DebugOutput = false;
+window.DebugOutput = true;
 
 if(window.DebugOutput) console.log("js/main.js entry")
 
