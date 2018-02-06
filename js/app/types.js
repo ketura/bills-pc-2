@@ -2,11 +2,11 @@ if(window.DebugOutput) console.log("js/app/types.js entry")
 
 
 
-define(["jquery", "CellEdit", "datatables", "select", "app/data/RenegadeData", "localforage", "app/BaseTab", "jquery-ui"]
-    , function($,  CellEdit,  datatables,   select, RData, localforage) 
+define(["jquery", "CellEdit", "datatables", "select", "app/data/TypeDefinition", "app/data/RenegadeData", "localforage", "tag-it", "app/BaseTab", "jquery-ui"]
+    , function($,  CellEdit,  datatables,   select, TypeDef, RData, localforage) 
 {
     if(window.DebugOutput) console.log("js/app/types.js define")
-    //console.log(select);
+
     CellEdit();
 
     function TypeTab()
@@ -15,6 +15,7 @@ define(["jquery", "CellEdit", "datatables", "select", "app/data/RenegadeData", "
 
         this.PokeTypes = [];
         this.typeDatatable = null;
+        this.DataPath = "TypesTab";
     }
 
     TypeTab.prototype = Object.create(BaseTab.prototype);
@@ -24,35 +25,45 @@ define(["jquery", "CellEdit", "datatables", "select", "app/data/RenegadeData", "
     let tab = new TypeTab();
 
     RData.GetData("Types", function (data){
-        console.log(data);
+        //console.log(data);
         tab.PokeTypes = data || [];
         tab.RebuildControls();
     });
-    //localforage.getItem("RenegadeData/Types", poo);
-
-    
-
 
     tab.PokeTypes = [];
     tab.typeDatatable = null;
 
     //The $(callback) function is basically something which runs after the entire document has been loaded.
-    $(function () {
-        if(window.DebugOutput) console.log("js/app/types.js actual")
-        console.log("type load");
+    //$(function () {
         
         //this can't be called here, since this is going to get hit before main actually loads.  It will need to be in the js of each page that uses it.
         //tab.Init();
-    });
+        //this can't be called here either stupid.  Put it in Init().
+        //tab.LoadData();
+    //});
 
     TypeTab.prototype.AssignEvents = function()
     {
-        // console.log("assigning");
+        console.log("assigning types");
         // console.log(tab);
-        $('[name=btnAddType]').on('click', function()
+        $('#btnAddType').click(function()
         {
             tab.PokeTypes.push($('#inNewType').val());
             tab.RebuildControls();
+        });
+
+        // $('input').change(function(){
+        //     tab.UpdateData();
+        // });
+
+        console.log($('#btnSaveTypes'));
+
+        $('#btnSave').click(function()
+        {
+            console.log("save button clicked");
+            console.log(tab);
+            tab.UpdateData();
+            tab.SaveData();
         });
     };
 
@@ -60,8 +71,8 @@ define(["jquery", "CellEdit", "datatables", "select", "app/data/RenegadeData", "
     {
         var self = this;
         // console.log("destroy");
-         console.log(self);
-         console.log(self.typeDatatable);
+        //console.log(self);
+        //console.log(self.typeDatatable);
 
         if(self.typeDatatable !== null)
         {
@@ -79,10 +90,19 @@ define(["jquery", "CellEdit", "datatables", "select", "app/data/RenegadeData", "
 
     TypeTab.prototype.BuildControls = function () 
     {
-        console.log("BuildControls");
+        console.log("types BuildControls");
         var self = this;
-        // console.log("build");
-        // console.log(self);
+
+        $(".accordion").accordion({
+            collapsible: true,
+            active: 0,
+            heightStyle: "content",
+            animate: 300
+        })
+
+        $('#inNewType').tagit({
+            removeConfirmation: true
+        });
 
         var tableData = [];
         var headerRow = {name:""};
@@ -95,9 +115,6 @@ define(["jquery", "CellEdit", "datatables", "select", "app/data/RenegadeData", "
         });
         tableData.push(headerRow);
 
-        //console.log("header info: ")
-        //console.log(headerRow);
-
         self.PokeTypes.forEach(function(row){
             columns.push({ data: row, className: 'cell dt-center'});
             var dataRow = {name: row};
@@ -106,7 +123,6 @@ define(["jquery", "CellEdit", "datatables", "select", "app/data/RenegadeData", "
             });
             tableData.push(dataRow);
         });
-
 
         self.typeDatatable = $("#typeTable").DataTable({
             "data": tableData,
@@ -134,7 +150,7 @@ define(["jquery", "CellEdit", "datatables", "select", "app/data/RenegadeData", "
         var colheaders = self.typeDatatable.cells(function(index, data, node){
             return index.column === 0 && index.row !== 0;
         });
-        colheaders.nodes().toJQuery().addClass("header-col");
+        colheaders.nodes().toJQuery().addClass("header-col add");
 
         var corner = self.typeDatatable.cells(function(index, data, node){
             return index.column === 0 && index.row === 0;
@@ -170,6 +186,41 @@ define(["jquery", "CellEdit", "datatables", "select", "app/data/RenegadeData", "
 
         return self.typeDatatable
     }
+
+    TypeTab.prototype.UpdateData = function(data)
+    {
+        var self = this;
+
+        if(window.DebugOutput) console.log("types UpdateData")
+        if(typeof(data) !== 'undefined' && data !== null)
+        {
+            tab.Data = data;
+            return;
+        }
+        
+        if(tab.Data === null)
+        {
+            tab.Data = {}; //TypeDef();
+        }
+
+        //console.log(self.typeDatatable.cells());
+
+        self.typeDatatable.rows().every(function(index){
+            let data = this.data();
+            //console.log(data);
+            //console.log(Object.keys(data));
+        });
+
+        self.PokeTypes.forEach(function(name){
+            tab.Data[name] = new TypeDef();
+            tab.Data[name].Name = name;
+        });
+        // tab.Data.NationalPokedexNumber = $('#txt-pokedex-number').val() || 0;
+        // tab.Data.CanonPokedexNumber = $('#txt-canon-pokedex-number').val() || 0;
+        // tab.Data.Legendary = $('#chk-Legendary').prop('checked') || false;
+        // tab.Data.PokedexEntry = $('#txt-pokedex-entry').val() || "";
+
+    };
 
     return tab;
 });  

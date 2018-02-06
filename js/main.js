@@ -1,10 +1,10 @@
-window.DebugOutput = true;
+window.DebugOutput = false;
 
-if(window.DebugOutput) console.log("js/main.js entry")
+if(window.DebugOutput) console.log("js/main.js entry");
 
 requirejs(['./common'], function (common) 
 {
-	if(window.DebugOutput) console.log("js/main.js require")
+	if(window.DebugOutput) console.log("js/main.js require");
   requirejs(['app/main']);
 
 });

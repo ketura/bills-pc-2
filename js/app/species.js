@@ -18,19 +18,9 @@ define(["jquery", "PokeAPI", "app/data/SpeciesDefinition", "app/data/RenegadeDat
 
     tab.Species = [];
 
-    //The $(callback) function is basically something which runs after the entire document has been loaded.
-    //$( window ).on( "load", function () {
-    $(function () {
-        
-        if(window.DebugOutput) console.log("js/app/species.js actual")
-        console.log("species load");
-        console.log($);
-        //tab.LoadData();
-        //tab.Init();
-    });
-
     SpeciesTab.prototype.AssignEvents = function()
     {
+        if(window.DebugOutput) console.log("species AssignEvents")
         // console.log("assigning");
         // console.log(tab);
         $('#btnSave').click(function()
@@ -58,6 +48,7 @@ define(["jquery", "PokeAPI", "app/data/SpeciesDefinition", "app/data/RenegadeDat
 
     SpeciesTab.prototype.BuildControls = function () 
     {
+        if(window.DebugOutput) console.log("species BuildControls")
         //Accordion layout outlined here: https://stackoverflow.com/a/13315683/888539
         $(".accordion").accordion({
             collapsible: true,
@@ -72,13 +63,7 @@ define(["jquery", "PokeAPI", "app/data/SpeciesDefinition", "app/data/RenegadeDat
 
     SpeciesTab.prototype.PopulateData = function()
     {
-        console.log("PopulateData");
-        console.log($(document));
-        
-        console.log($('#chk-Legendary').checkboxradio());
-        console.log($('#txt-pokedex-number'));
-        console.log("tab.Data:")
-        console.log(tab.Data);
+        if(window.DebugOutput) console.log("species PopulateData")
 
         $('#txt-pokedex-number').val(tab.Data.NationalPokedexNumber);
         $('#txt-canon-pokedex-number').val(tab.Data.CanonPokedexNumber);
@@ -86,14 +71,11 @@ define(["jquery", "PokeAPI", "app/data/SpeciesDefinition", "app/data/RenegadeDat
         $('#txt-pokedex-entry').val(tab.Data.PokedexEntry);
 
         $('input[type="checkbox"]').trigger("change");
-        console.log("populate should have finished");
-
     };
 
     SpeciesTab.prototype.UpdateData = function(data)
     {
-        console.log("updating");
-        console.log(data);
+        if(window.DebugOutput) console.log("species UpdateData")
         if(typeof(data) !== 'undefined' && data !== null)
         {
             tab.Data = data;

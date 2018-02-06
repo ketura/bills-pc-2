@@ -64,7 +64,7 @@ function GetRenegadeData($, localforage, PokeAPI)
 {
 	if(window.DebugOutput) console.log("js/app/RenegadeData.js define")
 	console.log("GetRenegadeData");
-	console.log(GetRenegadeData.data);
+	//console.log(GetRenegadeData.data);
 	if(typeof GetRenegadeData.data == 'undefined')
 	{
 		GetRenegadeData.data = new RenegadeData();

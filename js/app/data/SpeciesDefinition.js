@@ -18,7 +18,7 @@ function Species(name)
 		Female: {}
 	};
 	this.EvolvesFrom = "";
-	this.EvolvesInto = {}
+	this.EvolvesInto = {};
 
 }
 

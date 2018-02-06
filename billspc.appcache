@@ -8,5 +8,6 @@ CACHE:
 /js/app/BaseTab.js
 /js/app/main.js
 /js/app/types.js
+/js/app/data/TypesDefinitions.js
 /js/lib/jquery-private.js
 /js/lib/require.js

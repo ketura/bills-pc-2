@@ -26,6 +26,7 @@ requirejs.config(
         ,"pokeapi-js-wrapper": "lib/PokeAPI-JS-wrapper-1.0.0/js/pokeapi-js-wrapper.min"
         ,"PokeAPI": "app/PokeAPI"
         ,"localforage": "lib/localForage-1.5.5/js/localforage.min"
+        ,"tag-it": "lib/tag-it/js/tag-it"
     },
     onNodeCreated: function(node, config, module, path) 
     {
@@ -48,6 +49,7 @@ requirejs.config(
       '*': { 'jquery': 'jquery-private' },
       '*': { 'PokeAPI': 'pokeapi-js-wrapper' },
       '*': { 'datatables.net': 'datatables' },
+      'tag-it': { 'jQuery': 'jquery-private'},
       
 
       // 'jquery-private' wants the real jQuery module
