@@ -9,6 +9,8 @@ define(["jquery", "CellEdit", "datatables", "select", "app/data/TypeDefinition",
 
     CellEdit();
 
+    var MAX_NUM = Math.pow(2,32);
+
     function TypeTab()
     {
         BaseTab.call(this);
@@ -20,7 +22,7 @@ define(["jquery", "CellEdit", "datatables", "select", "app/data/TypeDefinition",
 
     TypeTab.prototype = Object.create(BaseTab.prototype);
     TypeTab.prototype.contructor = TypeTab;
-
+    TypeTab.prototype.SelectedType = null;
     
     let tab = new TypeTab();
 
@@ -41,6 +43,8 @@ define(["jquery", "CellEdit", "datatables", "select", "app/data/TypeDefinition",
         //this can't be called here either stupid.  Put it in Init().
         //tab.LoadData();
     //});
+
+
 
     TypeTab.prototype.AssignEvents = function()
     {
@@ -65,7 +69,216 @@ define(["jquery", "CellEdit", "datatables", "select", "app/data/TypeDefinition",
             tab.UpdateData();
             tab.SaveData();
         });
+
+        $('#btnDefaultTypes').click(function()
+        {
+            console.log("default types button clicked");
+            $("#inNewType").ProcessEvents = false;
+            tab.SetDefaultTypes();
+
+            $("#inNewType").ProcessEvents = true;
+            console.log($("#inNewType"));
+        });
+
+        $('#btnMoveTypeFront').click(function()
+        {
+            tab.SetTypeIndex(tab.SelectedType, 0);
+        });
+
+        $('#btnMoveTypeBack').click(function()
+        {
+            tab.SetTypeIndex(tab.SelectedType, MAX_NUM);
+        });
+
+        $('#btnMoveTypeLeft').click(function()
+        {
+            tab.MoveTypeIndex(tab.SelectedType, -1);
+        });
+
+        $('#btnMoveTypeRight').click(function()
+        {
+            tab.MoveTypeIndex(tab.SelectedType, 1);
+        });
+
+        $('#btnSortTypes').click(function()
+        {
+            tab.SortTypesAlphabetically();
+        });
+
     };
+
+    function OnTypeTagClicked(event, ui)
+    {
+        console.log(ui);
+        console.log($("#inNewType"))
+        if(!ui.tag.hasClass("selected"))
+        {
+            $(".tagit-choice").removeClass("selected");
+            ui.tag.addClass("selected");
+            tab.SelectedType = ui.tagLabel;
+        }
+    }
+
+    function OnTypeTagAdded(event, ui, duringInitialization)
+    {
+        if(duringInitialization || $("#inNewType").ProcessEvents === false)
+            return;
+
+        tab.SelectType(ui.tagLabel);
+    }
+
+    function OnTypeTagRemoved(event, ui)
+    {
+        if(ui.tagLabel === 'Normal')
+            return false;
+    }
+
+    function OnSubtypeTagClicked(event, ui)
+    {
+        console.log(ui);
+        ui.tag.addClass("selected");
+    }
+
+    TypeTab.prototype.ClearAllTypes = function()
+    {
+        $("#inNewType").tagit("removeAll");
+    }
+
+    TypeTab.prototype.SetDefaultTypes = function()
+    {
+        this.ClearAllTypes();
+        this.SetTypes(this.PokeTypes);
+    }
+
+    TypeTab.prototype.SetTypes = function(typesArray)
+    {
+        if(!typesArray)
+            return;
+
+        let self = this;
+
+        let eventState = $("#inNewType").ProcessEvents;
+        let selected = self.SelectedType;
+        $("#inNewType").ProcessEvents = false;
+
+        self.ClearAllTypes();
+        typesArray.forEach(function(type){
+            self.AddNewType(type, true, true);
+        });
+
+        $("#inNewType").ProcessEvents = eventState;
+        self.SelectType(selected);
+    }
+
+    TypeTab.prototype.SortTypesAlphabetically = function()
+    {
+        let tags = $("#inNewType").tagit("assignedTags");
+
+        tags.sort(function(a,b){
+            return a.localeCompare(b);
+        });
+
+        this.SetTypes(tags);
+    }
+
+    TypeTab.prototype.SetTypeIndex = function(type, index)
+    {
+        console.log("SetTypeIndex");
+        let tags = $("#inNewType").tagit("assignedTags");
+        if(!tags.includes(type))
+            return;
+
+        index = Math.max(0, index);
+        index = Math.min(tags.length - 1, index);
+
+        //remove the old instance
+        tags.splice(tags.indexOf(type), 1);
+        //insert into the new index
+        tags.splice(index, 0, type);
+
+        this.ClearAllTypes();
+        this.SetTypes(tags);
+    }
+
+    TypeTab.prototype.MoveTypeIndex = function(type, index)
+    {
+        console.log("MoveTypeIndex");
+        let tags = $("#inNewType").tagit("assignedTags");
+        if(!tags.includes(type))
+            return;
+
+        if(typeof(index) !== 'number')
+            return;
+
+        this.SetTypeIndex(type, tags.indexOf(type) + index);
+    }
+
+    TypeTab.prototype.UpdateTypeName = function(type, name)
+    {
+        let tags = $("#inNewType").tagit("assignedTags");
+        if(!tags.includes(type))
+            return;
+
+        let index = tags.indexOf(type)
+
+        //remove the old instance
+        tags.splice(tags.indexOf(type), 1);
+        //insert the new name at the old index
+        tags.splice(index, 0, name);
+
+        this.ClearAllTypes();
+        this.SetTypes(tags);
+    }
+
+    TypeTab.prototype.UpdateSubtypeName = function(type, subtype, name)
+    {
+        
+    }
+
+    TypeTab.prototype.AddNewType = function(name, hasOffense, hasDefense)
+    {
+        $("#inNewType").tagit("createTag", name);
+    }
+
+    TypeTab.prototype.AddNewSubtype = function(type, name, damageDict, statDict, abilityArray)
+    {
+        
+    }
+
+    TypeTab.prototype.RegenerateTable = function()
+    {
+
+    }
+
+    TypeTab.prototype.SelectType = function(newType)
+    {
+        let tags = $("#inNewType").tagit("assignedTags");
+        //console.log(tags);
+        //console.log(newType);
+        if(!tags.includes(newType))
+            return;
+
+        this.DeselectAllTypes();
+
+        let control = $("li:contains('" + newType + "')").addClass("selected");
+        tab.SelectedType = newType;
+    }
+
+    TypeTab.prototype.DeselectAllTypes = function()
+    {
+        $(".tagit-choice").removeClass("selected");
+        tab.SelectedType = null;
+    }
+
+    TypeTab.prototype.SelectSubtype = function(newsubType)
+    {
+        
+    }
+
+    TypeTab.prototype.DeselectAllSubtypes = function()
+    {
+        
+    }
 
     TypeTab.prototype.DestroyControls = function()
     {
@@ -100,9 +313,30 @@ define(["jquery", "CellEdit", "datatables", "select", "app/data/TypeDefinition",
             animate: 300
         })
 
+        $('input[type="checkbox"]').checkboxradio();
+
         $('#inNewType').tagit({
-            removeConfirmation: true
+            fieldName: "typeInput",
+            removeConfirmation: true,
+            placeholderText: "Add types here",
+            singleField: true,
+            singleFieldNode: $('#inNewType'),
+            onTagClicked: OnTypeTagClicked,
+            afterTagAdded: OnTypeTagAdded,
+            beforeTagRemoved: OnTypeTagRemoved
         });
+        $("#inNewType").ProcessEvents = true;
+
+        $('#inNewSubtype').tagit({
+            fieldName: "subTypeInput",
+            removeConfirmation: true,
+            placeholderText: "Add subtypes here",
+            singleField: true,
+            onTagClicked: OnSubtypeTagClicked
+        });
+        $("#inNewSubtype").ProcessEvents = true;
+
+
 
         var tableData = [];
         var headerRow = {name:""};

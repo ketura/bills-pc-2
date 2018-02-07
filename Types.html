@@ -24,12 +24,57 @@
     <div id="tab-body">
       <div id="type-header-panel">
         <button id="btnSave" type="button">Save</button>
+        <button id="btnDefaultTypes" type="button">Default Types</button>
       </div>
 			<div id="data-sections">
         <div class="accordion">
           <h3>Type Definitions</h3>
           <div>
-            <input id="inNewType">
+            <input id="inNewType" class="tagged-input">
+            <button id="btnMoveTypeFront" type="button"><<</button>
+            <button id="btnMoveTypeLeft" type="button"><</button>
+            <button id="btnSortTypes" type="button">A-Z</button>
+            <button id="btnMoveTypeRight" type="button">></button>
+            <button id="btnMoveTypeBack" type="button">>></button>
+            <br><br>
+
+            <div class="label-pair" id="type-notes">
+              <label class="lblNotes">
+                Notes
+                <textarea id="txtTypeNotes"></textarea>
+              </label>
+            </div>
+
+            <br><br>
+
+            <label>
+              Change Name: 
+              <input type="text" id="inTypeName"/>
+            </label>
+
+            <label class="toggle">
+              Has Offensive Profile
+              <input type="checkbox" name="chkOffensiveType" id="chkOffensiveType">
+            </label>
+
+            <label class="toggle">
+              Has Defensive Profiles
+              <input type="checkbox" name="chkDefensiveType" id="chkDefensiveType">
+            </label>
+
+            
+
+            
+            
+
+            <br><br>
+            <input id="inNewSubtype" class="tagged-input">
+            <button id="btnMoveSubtypeFront" type="button"><< </button>
+            <button id="btnMoveSubtypeLeft" type="button"> < </button>
+            <button id="btnSortSubtypes" type="button">A-Z</button>
+            <button id="btnMoveSubtypeRight" type="button"> > </button>
+            <button id="btnMoveSubtypeBack" type="button"> >></button>
+            <br><br>
             <button id="btnAddType" type="button">Add Type</button>
           </div>
         </div>

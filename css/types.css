@@ -1,4 +1,4 @@
-td.header-row, td.header-col, td.header-corner
+td.header-row, td.header-col, td.header-corner, td.cell, a.tagit-label
 {
     -webkit-touch-callout: none !important; /* iOS Safari */
       -webkit-user-select: none !important; /* Safari */
@@ -7,4 +7,81 @@ td.header-row, td.header-col, td.header-corner
           -ms-user-select: none !important; /* Internet Explorer/Edge */
               user-select: none !important; /* Non-prefixed version, currently
                                     supported by Chrome and Opera */
-  }
+}
+
+html, body, #data-sections, .accordion-content
+{
+	height: 100%;
+}
+
+.accordion
+{
+	width: 100%;
+	height: auto;
+}
+
+.accordion-content
+{
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: flex-center;
+	align-items: flex-start;
+	align-content: space-between;
+	/* border: 1px solid blue; */
+	
+}
+
+::placeholder 
+{
+  font-style: italic;
+}
+
+.selected
+{
+	background-color: #70aae5 !important;
+	color: #ffffff !important;
+}
+
+.label-pair
+{
+	margin: auto;
+	padding: 5px;
+	display: flex;
+	justify-content: space-between;
+	width: 95%;
+	height: 95%;
+	align-items: flex-end;
+	/*border: 1px solid red;*/
+}
+
+label #txtTypeNotes
+{
+	padding: 5px;
+	display: inline-block;
+	align-self: center;
+	width: 90%;
+}
+
+#txtTypeNotes
+{
+	/*flex: 2 1;*/
+	height: 95%;
+	min-width: 150px;
+	min-height: 100px;
+}
+
+#lblNotes
+{
+	min-width: 120px;
+	max-height: 40px;
+}
+
+.ui-icon-close
+{
+	display: none !important;
+}
+
+ul.tagit li.tagit-choice-editable {
+    padding: .2em 8px .2em .5em !important;
+}

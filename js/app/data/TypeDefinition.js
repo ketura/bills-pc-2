@@ -4,8 +4,17 @@ function Type(name)
 	this.Name = name || "";
 	this.Version = 1;
 	this.Notes = "";
-    this.Hides = [];
-    this.TypeProfiles = {};
+	this.HasOffensive = true;
+	this.HasDefensive = true;
+	this.Subtypes = {};
+	this.DamageProfiles = {};
+}
+
+function Subtype(name)
+{
+	this.Name = name || "";
+	this.Version = 1;
+	this.DamageProfiles = {};
 }
 
 // {
@@ -22,6 +31,6 @@ function Type(name)
 
 define(["jquery"], function($) 
 {
-    if(window.DebugOutput) console.log("js/app/TypesDefinition.js define");
-    return Type;
+	if(window.DebugOutput) console.log("js/app/TypesDefinition.js define");
+	return { Type: Type, Subtype: Subtype };
 });
