@@ -7,7 +7,22 @@ function Type(name)
 	this.HasOffensive = true;
 	this.HasDefensive = true;
 	this.Subtypes = {};
-	this.DamageProfiles = {};
+    this.DamageProfiles = {};
+    this.Subtypes[name] = new Subtype(name);
+
+}
+
+Type.prototype.UpdateType = function(type)
+{
+    console.log(this);
+    if(!this.hasOwnProperty(type))
+    {
+        this.DamageProfiles[type] = 1.0;
+        for(let subtype in this.Subtypes)
+        {
+            this.Subtypes[subtype].DamageProfiles[type] = 1.0;
+        }
+    }
 }
 
 function Subtype(name)
