@@ -25,11 +25,30 @@ html, body, #data-sections, .accordion-content
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
-	justify-content: flex-center;
+	justify-content: flex-end;
 	align-items: flex-start;
-	align-content: space-between;
+	/*align-content: space-between;
 	/* border: 1px solid blue; */
 	
+}
+
+#type-buttons
+{
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-items: flex-start;
+}
+
+#type-controls
+{
+	display: flex;
+}
+
+#btnDeleteType
+{
+	background-color: #d92929;
 }
 
 ::placeholder 

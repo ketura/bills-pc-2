@@ -31,11 +31,16 @@
           <h3>Type Definitions</h3>
           <div>
             <input id="inNewType" class="tagged-input">
-            <button id="btnMoveTypeFront" type="button"><<</button>
-            <button id="btnMoveTypeLeft" type="button"><</button>
-            <button id="btnSortTypes" type="button">A-Z</button>
-            <button id="btnMoveTypeRight" type="button">></button>
-            <button id="btnMoveTypeBack" type="button">>></button>
+            <div id="type-buttons">
+              <div id="type-controls">
+                <button id="btnMoveTypeFront" class="type-button" type="button"><<</button>
+                <button id="btnMoveTypeLeft" class="type-button" type="button"><</button>
+                <button id="btnSortTypes" class="type-button" type="button">A-Z</button>
+                <button id="btnMoveTypeRight" class="type-button" type="button">></button>
+                <button id="btnMoveTypeBack" class="type-button" type="button">>></button>
+              </div>
+              <button id="btnDeleteType" class="type-button" type="button">Delete</button>
+            </div>
             <br><br>
 
             <div class="label-pair" id="type-notes">
