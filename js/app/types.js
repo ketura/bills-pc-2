@@ -34,7 +34,6 @@ define(["jquery", "CellEdit", "datatables", "select", "app/data/TypeDefinition",
         }
         
         tab.DefaultTypes = data;
-        tab.RebuildControls();
     });
 
     tab.typeDatatable = null;
@@ -149,7 +148,6 @@ define(["jquery", "CellEdit", "datatables", "select", "app/data/TypeDefinition",
 
     TypeTab.prototype.SetDefaultTypes = function()
     {
-        this.ClearAllTypes();
         this.SetTypes(this.DefaultTypes);
     }
 

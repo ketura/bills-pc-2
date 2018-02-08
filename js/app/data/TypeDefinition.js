@@ -14,7 +14,7 @@ function Type(name)
 
 Type.prototype.UpdateType = function(type)
 {
-    console.log(this);
+    //console.log(this);
     if(!this.hasOwnProperty(type))
     {
         this.DamageProfiles[type] = 1.0;
