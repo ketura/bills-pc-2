@@ -46,7 +46,7 @@ meta.remove();
 
 
 $.extend( DataTable.ext.classes, {
-	sWrapper:    "dataTables_wrapper dt-foundation",
+	sWrapper:	"dataTables_wrapper dt-foundation",
 	sProcessing: "dataTables_processing panel callout"
 } );
 

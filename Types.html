@@ -1,105 +1,105 @@
 <html lang="en">
   <head>
-    <!-- <style type="text/css">@charset "UTF-8";</style> -->
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="/css/types.css">
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" >
-    <link rel="stylesheet" href="https://cdn.datatables.net/keytable/2.3.2/css/keyTable.jqueryui.min.css" >
-    <link rel="stylesheet" href="https://cdn.datatables.net/fixedcolumns/3.2.4/css/fixedColumns.dataTables.min.css" >
-    <link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.1.3/css/fixedHeader.dataTables.min.css" >
-    <link rel="stylesheet" href="https://cdn.datatables.net/select/1.2.4/css/select.dataTables.min.css" >
-    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.1/css/buttons.dataTables.min.css" >
-    <link rel="stylesheet" href="js/lib/tag-it/css/jquery.tagit.css"  type="text/css">
-    <title>Ketura's PC</title>
+	<!-- <style type="text/css">@charset "UTF-8";</style> -->
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="/css/types.css">
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" >
+	<link rel="stylesheet" href="https://cdn.datatables.net/keytable/2.3.2/css/keyTable.jqueryui.min.css" >
+	<link rel="stylesheet" href="https://cdn.datatables.net/fixedcolumns/3.2.4/css/fixedColumns.dataTables.min.css" >
+	<link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.1.3/css/fixedHeader.dataTables.min.css" >
+	<link rel="stylesheet" href="https://cdn.datatables.net/select/1.2.4/css/select.dataTables.min.css" >
+	<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.1/css/buttons.dataTables.min.css" >
+	<link rel="stylesheet" href="js/lib/tag-it/css/jquery.tagit.css"  type="text/css">
+	<title>Ketura's PC</title>
 
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.16/js/jquery.dataTables.js"></script> -->
-    <!-- <script src="https://cdn.datatables.net/fixedcolumns/3.2.4/js/dataTables.fixedColumns.min.js"></script>
-    <script src="https://cdn.datatables.net/fixedheader/3.1.3/js/dataTables.fixedHeader.min.js"></script>
-    <script src="https://cdn.datatables.net/select/1.2.4/js/dataTables.select.min.js"></script> -->
-    
+	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.16/js/jquery.dataTables.js"></script> -->
+	<!-- <script src="https://cdn.datatables.net/fixedcolumns/3.2.4/js/dataTables.fixedColumns.min.js"></script>
+	<script src="https://cdn.datatables.net/fixedheader/3.1.3/js/dataTables.fixedHeader.min.js"></script>
+	<script src="https://cdn.datatables.net/select/1.2.4/js/dataTables.select.min.js"></script> -->
+	
   </head>
   <body>
-    <div id="tab-body">
-      <div id="type-header-panel">
-        <button id="btnSave" type="button">Save</button>
-        <button id="btnDefaultTypes" type="button">Default Types</button>
-      </div>
+	<div id="tab-body">
+	  <div id="type-header-panel">
+		<button id="btnSave" type="button">Save</button>
+		<button id="btnDefaultTypes" type="button">Default Types</button>
+	  </div>
 			<div id="data-sections">
-        <div class="accordion">
-          <h3>Type Definitions</h3>
-          <div>
-            <input id="inNewType" class="tagged-input">
-            <div id="type-buttons">
-              <div id="type-controls">
-                <button id="btnMoveTypeFront" class="type-button" type="button"><<</button>
-                <button id="btnMoveTypeLeft" class="type-button" type="button"><</button>
-                <button id="btnSortTypes" class="type-button" type="button">A-Z</button>
-                <button id="btnMoveTypeRight" class="type-button" type="button">></button>
-                <button id="btnMoveTypeBack" class="type-button" type="button">>></button>
-              </div>
-              <button id="btnDeleteType" class="type-button" type="button">Delete</button>
-            </div>
-            <br><br>
-
-            <div class="label-pair" id="type-notes">
-              <label class="lblNotes">
-                Notes
-                <textarea id="txtTypeNotes"></textarea>
-              </label>
-            </div>
-
-            <br><br>
-
-            <label>
-              Change Name: 
-              <input type="text" id="inTypeName"/>
-            </label>
-
-            <label class="toggle">
-              Has Offensive Profile
-              <input type="checkbox" name="chkOffensiveType" id="chkOffensiveType">
-            </label>
-
-            <label class="toggle">
-              Has Defensive Profiles
-              <input type="checkbox" name="chkDefensiveType" id="chkDefensiveType">
-            </label>
-
-            
-
-            
-            
-
-            <br><br>
-            <input id="inNewSubtype" class="tagged-input">
-            <button id="btnMoveSubtypeFront" type="button"><< </button>
-            <button id="btnMoveSubtypeLeft" type="button"> < </button>
-            <button id="btnSortSubtypes" type="button">A-Z</button>
-            <button id="btnMoveSubtypeRight" type="button"> > </button>
-            <button id="btnMoveSubtypeBack" type="button"> >></button>
-            <br><br>
-            <button id="btnAddType" type="button">Add Type</button>
-          </div>
-        </div>
-
-        <div class="accordion">
-          <h3>Type Stats</h3>
-          <div>
-            
-          </div>
-        </div>
-
-        <div class="accordion">
-          <h3>Type Chart</h3>
-          <div>
-              <table id="typeTable" class="display cell-border compact hover stripe" width="80%" cellspacing="0"> </table>
-          </div>
-        </div>
+		<div class="accordion">
+		  <h3>Type Definitions</h3>
+		  <div>
+			<input id="inNewType" class="tagged-input">
+			<div id="type-buttons">
+			  <div id="type-controls">
+				<button id="btnMoveTypeFront" class="type-button" type="button"><<</button>
+				<button id="btnMoveTypeLeft" class="type-button" type="button"><</button>
+				<button id="btnSortTypes" class="type-button" type="button">A-Z</button>
+				<button id="btnMoveTypeRight" class="type-button" type="button">></button>
+				<button id="btnMoveTypeBack" class="type-button" type="button">>></button>
+			  </div>
+			  <button id="btnDeleteType" class="type-button" type="button">Delete</button>
 			</div>
-    </div>	
+			<br><br>
 
-    <script defer data-main="js/types" src="js/lib/require.js"></script>
+			<div class="label-pair" id="type-notes">
+			  <label class="lblNotes">
+				Notes
+				<textarea id="txtTypeNotes"></textarea>
+			  </label>
+			</div>
+
+			<br><br>
+
+			<label>
+			  Change Name: 
+			  <input type="text" id="inTypeName"/>
+			</label>
+
+			<label class="toggle">
+			  Has Offensive Profile
+			  <input type="checkbox" name="chkOffensiveType" id="chkOffensiveType">
+			</label>
+
+			<label class="toggle">
+			  Has Defensive Profiles
+			  <input type="checkbox" name="chkDefensiveType" id="chkDefensiveType">
+			</label>
+
+			
+
+			
+			
+
+			<br><br>
+			<input id="inNewSubtype" class="tagged-input">
+			<button id="btnMoveSubtypeFront" type="button"><< </button>
+			<button id="btnMoveSubtypeLeft" type="button"> < </button>
+			<button id="btnSortSubtypes" type="button">A-Z</button>
+			<button id="btnMoveSubtypeRight" type="button"> > </button>
+			<button id="btnMoveSubtypeBack" type="button"> >></button>
+			<br><br>
+			<button id="btnAddType" type="button">Add Type</button>
+		  </div>
+		</div>
+
+		<div class="accordion">
+		  <h3>Type Stats</h3>
+		  <div>
+			
+		  </div>
+		</div>
+
+		<div class="accordion">
+		  <h3>Type Chart</h3>
+		  <div>
+			  <table id="typeTable" class="display cell-border compact hover stripe" width="80%" cellspacing="0"> </table>
+		  </div>
+		</div>
+			</div>
+	</div>	
+
+	<script defer data-main="js/types" src="js/lib/require.js"></script>
 	</body>
 </html>

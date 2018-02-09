@@ -147,7 +147,7 @@ $.extend( DataTable.ext.buttons, {
 			// populated when Buttons is constructed.
 			var idx = dt.column( conf.columns ).index();
 			var title = dt.settings()[0].aoColumns[ idx ].sTitle
-				.replace(/\n/g," ")        // remove new lines
+				.replace(/\n/g," ")		// remove new lines
 				.replace(/<br\s*\/?>/gi, " ")  // replace line breaks with spaces
 				.replace(/<select(.*?)<\/select>/g, "") // remove select tags, including options text
 				.replace(/<.*?>/g, "")   // strip HTML

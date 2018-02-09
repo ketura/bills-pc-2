@@ -26,6 +26,6 @@ function Species(name)
 
 define(["jquery"], function($) 
 {
-    if(window.DebugOutput) console.log("js/app/SpeciesDefinition.js define")
-    return Species;
+	if(window.DebugOutput) console.log("js/app/SpeciesDefinition.js define")
+	return Species;
 });

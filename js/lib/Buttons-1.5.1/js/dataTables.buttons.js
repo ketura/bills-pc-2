@@ -505,7 +505,7 @@ $.extend( Buttons.prototype, {
 
 	/**
 	 * Create an individual button
-	 * @param  {object} config            Resolved button configuration
+	 * @param  {object} config			Resolved button configuration
 	 * @param  {boolean} inCollection `true` if a collection button
 	 * @return {jQuery} Created button node (jQuery)
 	 * @private
@@ -619,10 +619,10 @@ $.extend( Buttons.prototype, {
 		this._addKey( config );
 
 		return {
-			conf:         config,
-			node:         button.get(0),
-			inserter:     inserter,
-			buttons:      [],
+			conf:		 config,
+			node:		 button.get(0),
+			inserter:	 inserter,
+			buttons:	  [],
 			inCollection: inCollection,
 			collection:   null
 		};
@@ -1319,7 +1319,7 @@ $.extend( _dtButtons, {
 		var text = function ( dt ) {
 			return dt.i18n( 'buttons.pageLength', {
 				"-1": 'Show all rows',
-				_:    'Show %d rows'
+				_:	'Show %d rows'
 			}, dt.page.len() );
 		};
 
@@ -1710,18 +1710,18 @@ var _exportTextarea = $('<textarea/>')[0];
 var _exportData = function ( dt, inOpts )
 {
 	var config = $.extend( true, {}, {
-		rows:           null,
-		columns:        '',
-		modifier:       {
+		rows:		   null,
+		columns:		'',
+		modifier:	   {
 			search: 'applied',
 			order:  'applied'
 		},
-		orthogonal:     'display',
-		stripHtml:      true,
+		orthogonal:	 'display',
+		stripHtml:	  true,
 		stripNewlines:  true,
 		decodeEntities: true,
-		trim:           true,
-		format:         {
+		trim:		   true,
+		format:		 {
 			header: function ( d ) {
 				return strip( d );
 			},

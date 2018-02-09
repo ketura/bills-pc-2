@@ -54,10 +54,10 @@ $.extend( true, DataTable.defaults, {
 
 
 $.extend( DataTable.ext.classes, {
-	"sWrapper":            "dataTables_wrapper dt-jqueryui",
+	"sWrapper":			"dataTables_wrapper dt-jqueryui",
 
 	/* Full numbers paging buttons */
-	"sPageButton":         "fg-button ui-button ui-state-default",
+	"sPageButton":		 "fg-button ui-button ui-state-default",
 	"sPageButtonActive":   "ui-state-disabled",
 	"sPageButtonDisabled": "ui-state-disabled",
 
@@ -66,13 +66,13 @@ $.extend( DataTable.ext.classes, {
 		"ui-buttonset-multi paging_", /* Note that the type is postfixed */
 
 	/* Sorting */
-	"sSortAsc":            "ui-state-default sorting_asc",
-	"sSortDesc":           "ui-state-default sorting_desc",
-	"sSortable":           "ui-state-default sorting",
-	"sSortableAsc":        "ui-state-default sorting_asc_disabled",
-	"sSortableDesc":       "ui-state-default sorting_desc_disabled",
-	"sSortableNone":       "ui-state-default sorting_disabled",
-	"sSortIcon":           "DataTables_sort_icon",
+	"sSortAsc":			"ui-state-default sorting_asc",
+	"sSortDesc":		   "ui-state-default sorting_desc",
+	"sSortable":		   "ui-state-default sorting",
+	"sSortableAsc":		"ui-state-default sorting_asc_disabled",
+	"sSortableDesc":	   "ui-state-default sorting_desc_disabled",
+	"sSortableNone":	   "ui-state-default sorting_disabled",
+	"sSortIcon":		   "DataTables_sort_icon",
 
 	/* Scrolling */
 	"sScrollHead": "dataTables_scrollHead "+"ui-state-default",

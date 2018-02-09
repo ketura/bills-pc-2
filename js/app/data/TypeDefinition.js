@@ -7,22 +7,23 @@ function Type(name)
 	this.HasOffensive = true;
 	this.HasDefensive = true;
 	this.Subtypes = {};
-    this.DamageProfiles = {};
-    this.Subtypes[name] = new Subtype(name);
+	this.DamageProfiles = {};
+	this.Subtypes[name] = new Subtype(name);
+	this.Active = true;
 
 }
 
 Type.prototype.UpdateType = function(type)
 {
-    //console.log(this);
-    if(!this.hasOwnProperty(type))
-    {
-        this.DamageProfiles[type] = 1.0;
-        for(let subtype in this.Subtypes)
-        {
-            this.Subtypes[subtype].DamageProfiles[type] = 1.0;
-        }
-    }
+	//console.log(this);
+	if(!this.hasOwnProperty(type))
+	{
+		this.DamageProfiles[type] = 1.0;
+		for(let subtype in this.Subtypes)
+		{
+			this.Subtypes[subtype].DamageProfiles[type] = 1.0;
+		}
+	}
 }
 
 function Subtype(name)
@@ -33,15 +34,15 @@ function Subtype(name)
 }
 
 // {
-//     "Name": "Ice",
-//    "Subtypes": [
-//        "Thick Fat",
-//        "Frost"
-//    ],
-//    "Damage": {
-//        "Bark": 1.2,
-//        "Leaf": 1.4
-//    }
+//	 "Name": "Ice",
+//	"Subtypes": [
+//		"Thick Fat",
+//		"Frost"
+//	],
+//	"Damage": {
+//		"Bark": 1.2,
+//		"Leaf": 1.4
+//	}
 // }
 
 define(["jquery"], function($) 
