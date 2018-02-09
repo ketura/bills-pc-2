@@ -27,6 +27,7 @@ define(["jquery", "CellEdit", "datatables", "select", "app/data/TypeDefinition",
 	
 	let tab = new TypeTab();
 
+	//polls PokeAPI for the types info
 	RData.GetData("Types", function (data){
 		if(!data)
 		{
@@ -104,18 +105,16 @@ define(["jquery", "CellEdit", "datatables", "select", "app/data/TypeDefinition",
 			tab.RemoveType(tab.SelectedType);
 		});
 
+		$('#inTypeName').change(function(event)
+		{
+			tab.UpdateTypeName(tab.SelectedType, event.target.value);
+		});
+
 	};
 
 	function OnTypeTagClicked(event, ui)
 	{
-		console.log(ui);
-		console.log($("#inNewType"))
-		if(!ui.tag.hasClass("selected"))
-		{
-			$(".tagit-choice").removeClass("selected");
-			ui.tag.addClass("selected");
-			tab.SelectedType = ui.tagLabel;
-		}
+		tab.SelectType(ui.tagLabel);
 	}
 
 	function OnTypeTagAdded(event, ui, duringInitialization)
@@ -141,9 +140,9 @@ define(["jquery", "CellEdit", "datatables", "select", "app/data/TypeDefinition",
 	TypeTab.prototype.ClearAllTypes = function()
 	{
 		$("#inNewType").tagit("removeAll");
-		for(let type of this.PokeTypes)
+		for(let type in this.PokeTypes)
 		{
-			type.Active = false;
+			this.PokeTypes[type].Active = false;
 		}
 	}
 
@@ -156,7 +155,7 @@ define(["jquery", "CellEdit", "datatables", "select", "app/data/TypeDefinition",
 		let tags = $("#inNewType").tagit("assignedTags");
 		this.SelectType(tags[tags.length - 1]);
 
-		if(type in PokeTypes)
+		if(type in this.PokeTypes)
 		{
 			this.PokeTypes[type].Active = false;
 		}
@@ -188,7 +187,7 @@ define(["jquery", "CellEdit", "datatables", "select", "app/data/TypeDefinition",
 		$("#inNewType").data("ProcessEvents", eventState);
 		self.SelectType(selected);
 
-		tab.RegenerateTable();
+		self.RegenerateTable();
 	}
 
 	TypeTab.prototype.SortTypesAlphabetically = function()
@@ -200,6 +199,7 @@ define(["jquery", "CellEdit", "datatables", "select", "app/data/TypeDefinition",
 		});
 
 		this.SetTypes(tags);
+		this.RegenerateTable();
 	}
 
 	TypeTab.prototype.SetTypeIndex = function(type, index)
@@ -238,7 +238,16 @@ define(["jquery", "CellEdit", "datatables", "select", "app/data/TypeDefinition",
 	{
 		let tags = $("#inNewType").tagit("assignedTags");
 		if(!tags.includes(type))
+		{
+			$('#inTypeName').val("");
 			return;
+		}
+
+		if(type === "Normal")
+		{
+			$('#inTypeName').val("Normal");
+			return;
+		}
 
 		let index = tags.indexOf(type)
 
@@ -249,6 +258,9 @@ define(["jquery", "CellEdit", "datatables", "select", "app/data/TypeDefinition",
 
 		this.ClearAllTypes();
 		this.SetTypes(tags);
+		this.SelectType(name);
+
+		console.log(this.PokeTypes);
 	}
 
 	TypeTab.prototype.UpdateSubtypeName = function(type, subtype, name)
@@ -263,12 +275,19 @@ define(["jquery", "CellEdit", "datatables", "select", "app/data/TypeDefinition",
 			$("#inNewType").tagit("createTag", name);
 		}
 
-		if(!name in this.PokeTypes)
+		if(!(name in this.PokeTypes))
 		{
 			this.PokeTypes[name] = new TypeDef.Type(name);
+
+			this.PokeTypes[name].HasOffensive = typeof(hasOffense) === "undefined" ? true : hasOffense;
+			this.PokeTypes[name].HasDefensive = typeof (hasDefense) === "undefined" ? true : hasDefense;
 		}
-		this.PokeTypes[name].HasOffensive = hasOffense || this.PokeTypes[name].HasOffensive;
-		this.PokeTypes[name].HasDefensive = hasDefense || this.PokeTypes[name].HasDefensive;
+		else
+		{
+			this.PokeTypes[name].Active = true;
+			this.PokeTypes[name].HasOffensive = hasOffense || this.PokeTypes[name].HasOffensive;
+			this.PokeTypes[name].HasDefensive = hasDefense || this.PokeTypes[name].HasDefensive;
+		}
 
 		for(let type in this.PokeTypes)
 		{
@@ -280,7 +299,10 @@ define(["jquery", "CellEdit", "datatables", "select", "app/data/TypeDefinition",
 
 		//console.log(tab.PokeTypes);
 
-		tab.RegenerateTable();
+		if ($("#inNewType").data("ProcessEvents"))
+		{
+			tab.RegenerateTable();
+		}
 	}
 
 	TypeTab.prototype.AddNewSubtype = function(type, name, damageDict, statDict, abilityArray)
@@ -302,6 +324,11 @@ define(["jquery", "CellEdit", "datatables", "select", "app/data/TypeDefinition",
 
 		let control = $("li:contains('" + newType + "')").addClass("selected");
 		tab.SelectedType = newType;
+
+		$('#inTypeName').val(newType);
+		let type = this.PokeTypes[newType];
+		$('#chkOffensiveType').prop("checked", type.HasOffensive).checkboxradio("refresh");
+		$('#chkDefensiveType').prop("checked", type.HasDefensive).checkboxradio("refresh");
 	}
 
 	TypeTab.prototype.DeselectAllTypes = function()
@@ -398,18 +425,27 @@ define(["jquery", "CellEdit", "datatables", "select", "app/data/TypeDefinition",
 			{ data: 'name', className: 'dt-center'}
 		];
 
-		for(let row of Object.keys(self.PokeTypes))
+		let tags = $("#inNewType").tagit("assignedTags")
+
+		for (let row of tags)
 		{
+			if(!self.PokeTypes[row].Active)
+				continue;
 			headerRow[row] = row;
 		}
 		tableData.push(headerRow);
 
-		for(let row of Object.keys(self.PokeTypes))
+		for (let row of tags)
 		{
+			if (!self.PokeTypes[row].Active)
+				continue;
+
 			columns.push({ data: row, className: 'cell dt-center'});
 			var dataRow = {name: row};
-			for(let col of Object.keys(self.PokeTypes))
+			for (let col of tags)
 			{
+				if (!self.PokeTypes[col].Active)
+					continue;
 				dataRow[col] = self.PokeTypes[row].DamageProfiles[col];
 			}
 			tableData.push(dataRow);
